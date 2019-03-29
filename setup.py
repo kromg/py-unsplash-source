@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='py-unsplash-source',
+    name='py_unsplash_source',
     version='0.1dev',
     packages=find_packages(
         exclude=['tests']
