@@ -30,7 +30,7 @@ image = su.from_user_getter(
     width=123,  # optional
     height=234,  # optional
     from_likes=True,  # Default: false - get from user likes
-    update="UpdateFrquency",  # Optional - From enum: UpdateFrquency
+    update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
     search="search,terms"  # Optional - append search terms
 ).get()
 
@@ -39,7 +39,7 @@ image = su.from_collection_getter(
     id="collection_id",
     width=123,  # optional
     height=234,  # optional
-    update="UpdateFrquency",  # Optional - From enum: UpdateFrquency
+    update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
     search="search,terms"  # Optional - append search terms
 ).get()
 
@@ -47,7 +47,7 @@ image = su.from_collection_getter(
 image = su.featured_getter(
     width=123,  # optional
     height=234,  # optional
-    update="UpdateFrquency",  # Optional - From enum: UpdateFrquency
+    update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
     search="search,terms"  # Optional - append search terms
 ).get()
 
