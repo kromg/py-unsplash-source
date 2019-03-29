@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# TestBaseGetter
+# unsplash_server.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,12 +20,20 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-import pytest
-from py_unsplash_source.getters.base_getter import BaseGetter
-from py_unsplash_source.unsplash_server import UnsplashServer
 
+class UnsplashServer:
 
-def test_base_getter_is_abstract():
-    with pytest.raises(TypeError, match="Can't instantiate abstract class"):
-        bg = BaseGetter(UnsplashServer(), 1, 2)
+    def __init__(self,
+                 protocol: str = 'https',
+                 host: str = 'source.unsplash.com',
+                 port: int = None):
+        self.protocol = protocol
+        self.host = host
+        self.port = port
 
+    def __str__(self):
+        return '{}://{}{}'.format(
+            self.protocol,
+            self.host,
+            ':{}'.format(self.port) if self.port else ''
+        )

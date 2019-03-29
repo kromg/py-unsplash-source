@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# TestBaseGetter
+# BaseGetter
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,12 +20,24 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-import pytest
+from abc import ABC
 from py_unsplash_source.getters.base_getter import BaseGetter
 from py_unsplash_source.unsplash_server import UnsplashServer
 
 
-def test_base_getter_is_abstract():
-    with pytest.raises(TypeError, match="Can't instantiate abstract class"):
-        bg = BaseGetter(UnsplashServer(), 1, 2)
+class RandomGetter(BaseGetter, ABC):
+    """Base class from which all random getters must be derived. It handles the information to search and get specific
+    update frequencies."""
+
+    def __init__(self,
+                 server: UnsplashServer,
+                 width: int,
+                 height: int,
+                 search: str = None,
+                 update_freq=None,
+                 ):
+        # TODO: document this
+        super(RandomGetter, self).__init__(server, width, height)
+        self.search_params = search.split(r'\s*,\s*') if search else None
+        self.update_freq = update_freq
 

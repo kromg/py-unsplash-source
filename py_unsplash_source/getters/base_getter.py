@@ -21,29 +21,28 @@
 #
 
 from abc import ABC, abstractmethod
+from py_unsplash_source.unsplash_server import UnsplashServer
 
 
 class BaseGetter(ABC):
     """Base class from which all getters must be derived. It handles the basic information to fetch an image."""
 
     def __init__(self,
-                 protocol='https',
-                 host='source.unsplash.com',
-                 port=443,
-                 width=None,
-                 height=None):
+                 server: UnsplashServer,
+                 width: int,
+                 height: int):
         # TODO: document this
-        self.protocol = protocol
-        self.host = host
-        self.port = port
+        self.server = server
 
         self.width = width
         self.height = height
 
+        self.url = None
+
     @abstractmethod
-    def _build_url(self):
-        """This method must be implemented by each derived getter and it must return the url to be fetched
-         as a string"""
+    def _build_request(self):
+        """This method must be implemented by each derived getter and it must return the requests.Request object to be
+        used to fetch an item."""
         # TODO: enhance docstring with params and returns
         pass
 
@@ -51,4 +50,3 @@ class BaseGetter(ABC):
         """Fetch an image per configuration of this getter. Returns a FetchedImage instance"""
         # TODO: enhance docstring with params and returns
         pass
-

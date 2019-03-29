@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# TestBaseGetter
+# BaseGetter
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,12 +20,24 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-import pytest
-from py_unsplash_source.getters.base_getter import BaseGetter
+from py_unsplash_source.getters.random_getter import RandomGetter
 from py_unsplash_source.unsplash_server import UnsplashServer
 
 
-def test_base_getter_is_abstract():
-    with pytest.raises(TypeError, match="Can't instantiate abstract class"):
-        bg = BaseGetter(UnsplashServer(), 1, 2)
+class FeaturedGetter(RandomGetter):
+    """Getter that fetches a random item from a featured collection (extends RandomGetter)."""
+
+    def __init__(self,
+                 server: UnsplashServer = UnsplashServer(),
+                 width: int = None,
+                 height: int = None,
+                 search: str = None,
+                 update_freq=None,
+                 ):
+        # TODO: document this
+        super(FeaturedGetter, self).__init__(server, width, height, search, update_freq)
+
+    def _build_request(self):
+        return None
+
 

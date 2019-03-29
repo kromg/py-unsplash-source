@@ -69,5 +69,8 @@ image.save_as("file name")
 #       manipulating exif data or something of this sort?)
 #   - hierarchy:
 #       BaseGetter (width, height)
-#           |-  SearchGetter (search)
+#           |- RandomGetter (search & Frequency)
+#           |   |- FeaturedGetter
+#           |   |- CollectionGetter
+#           |- SingleItemGetter
 # 

@@ -21,11 +21,11 @@
 #
 
 import pytest
-from py_unsplash_source.getters.base_getter import BaseGetter
+from py_unsplash_source.getters.random_getter import RandomGetter
 from py_unsplash_source.unsplash_server import UnsplashServer
 
 
-def test_base_getter_is_abstract():
+def test_random_getter_is_abstract():
     with pytest.raises(TypeError, match="Can't instantiate abstract class"):
-        bg = BaseGetter(UnsplashServer(), 1, 2)
+        rg = RandomGetter(UnsplashServer(), 1, 2)
 
