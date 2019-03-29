@@ -20,3 +20,54 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from py_unsplash_source import PyUnsplashSource
+
+su = PyUnsplashSource()
+
+# Random from a specific user
+image = su.from_user_getter(
+    user="name",
+    width=123,  # optional
+    height=234,  # optional
+    from_likes=True,  # Default: false - get from user likes
+    update="UpdateFrquency",  # Optional - From enum: UpdateFrquency
+    search="search,terms"  # Optional - append search terms
+).get()
+
+# Random from a collection
+image = su.from_collection_getter(
+    id="collection_id",
+    width=123,  # optional
+    height=234,  # optional
+    update="UpdateFrquency",  # Optional - From enum: UpdateFrquency
+    search="search,terms"  # Optional - append search terms
+).get()
+
+# Random from featured collection
+image = su.featured_getter(
+    width=123,  # optional
+    height=234,  # optional
+    update="UpdateFrquency",  # Optional - From enum: UpdateFrquency
+    search="search,terms"  # Optional - append search terms
+).get()
+
+# Speficic image
+image = su.image_getter(
+    id="image_id",
+    width=123,  # optional
+    height=234,  # optional
+).get()
+
+
+# Once you get the image into memory, save it somewhere:
+image.save_as("file name")
+
+
+# Notes:
+#   - each *_getter will produce a "getter" object, capable of downloading one image each tmie get() is called
+#   - each call to get() will return an "image" object, capable of saving data to some file (and maybe capable of
+#       manipulating exif data or something of this sort?)
+#   - hierarchy:
+#       BaseGetter (width, height)
+#           |-  SearchGetter (search)
+# 
