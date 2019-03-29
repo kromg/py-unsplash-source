@@ -1,0 +1,11 @@
+**/.idea
+**/.*.swp
+**/__pycache__
+**/.pytest_cache
+**/*.pyc
+**/.tox
+
+# Dist
+dist
+MANIFEST
+**/*.egg-info
