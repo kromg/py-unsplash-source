@@ -23,6 +23,11 @@
 from abc import ABC
 from py_unsplash_source.getters.base_getter import BaseGetter
 from py_unsplash_source.unsplash_server import UnsplashServer
+from py_unsplash_source.getters.reload_frequency import ReloadFrequency
+
+import re
+
+_SEARCH_SEPARATOR = re.compile(r'\s*,\s*')
 
 
 class RandomGetter(BaseGetter, ABC):
@@ -34,10 +39,9 @@ class RandomGetter(BaseGetter, ABC):
                  width: int,
                  height: int,
                  search: str = None,
-                 update_freq=None,
+                 reload_freq: ReloadFrequency = None,
                  ):
         # TODO: document this
         super(RandomGetter, self).__init__(server, width, height)
-        self.search_params = search.split(r'\s*,\s*') if search else None
-        self.update_freq = update_freq
-
+        self.search_params = _SEARCH_SEPARATOR.split(search) if search else None
+        self.reload_freq = reload_freq

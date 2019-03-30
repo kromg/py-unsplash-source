@@ -22,6 +22,13 @@
 
 from abc import ABC, abstractmethod
 from py_unsplash_source.unsplash_server import UnsplashServer
+from py_unsplash_source.getters.fetched_image import FetchedImage
+
+import requests
+
+
+class DownloadException(Exception):
+    """Raised when download fails."""
 
 
 class BaseGetter(ABC):
@@ -40,13 +47,19 @@ class BaseGetter(ABC):
         self.url = None
 
     @abstractmethod
-    def _build_request(self):
-        """This method must be implemented by each derived getter and it must return the requests.Request object to be
+    def _build_url(self):
+        """This method must be implemented by each derived getter and it must return the URL string to be
         used to fetch an item."""
         # TODO: enhance docstring with params and returns
-        pass
 
     def get(self):
         """Fetch an image per configuration of this getter. Returns a FetchedImage instance"""
         # TODO: enhance docstring with params and returns
-        pass
+        url = self._build_url()
+        response = requests.get(url)
+        if response.status_code is not 200:
+            raise DownloadException('Fetch: {} - returned: {}'.format(
+                url,
+                response.status_code
+            ))
+        return FetchedImage(response.content)

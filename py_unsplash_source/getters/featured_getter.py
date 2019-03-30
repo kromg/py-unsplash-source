@@ -22,6 +22,7 @@
 
 from py_unsplash_source.getters.random_getter import RandomGetter
 from py_unsplash_source.unsplash_server import UnsplashServer
+from py_unsplash_source.getters.reload_frequency import ReloadFrequency
 
 
 class FeaturedGetter(RandomGetter):
@@ -32,12 +33,21 @@ class FeaturedGetter(RandomGetter):
                  width: int = None,
                  height: int = None,
                  search: str = None,
-                 update_freq=None,
+                 reload_freq: ReloadFrequency = None,
                  ):
         # TODO: document this
-        super(FeaturedGetter, self).__init__(server, width, height, search, update_freq)
+        super(FeaturedGetter, self).__init__(server, width, height, search, reload_freq)
 
-    def _build_request(self):
-        return None
+    def _build_url(self):
+        url = '{}/featured'.format(self.server)
 
+        if self.reload_freq:
+            url += '/{}'.format(self.reload_freq.value)
 
+        if self.width and self.height:
+            url += '/{}x{}'.format(self.width, self.height)
+
+        if self.search_params:
+            url += '?{}'.format(','.join(self.search_params))
+
+        return url

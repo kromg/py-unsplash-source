@@ -10,5 +10,5 @@ setup(
     long_description=open('README.txt').read(),
     zip_safe=True,
     platforms="POSIX",
-    test_require=['pytest'], install_requires=['pytest']
+    test_require=['pytest', 'requests'], install_requires=['requests']
 )
