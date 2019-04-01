@@ -20,8 +20,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from typing import Type
+
 from py_unsplash_source.getters import CollectionItemGetter, UserItemGetter, FeaturedGetter, RandomGetter, ItemGetter
-from py_unsplash_source.getters.reload_frequency import ReloadFrequency
+from py_unsplash_source.getters.base_getter import BaseGetter
 
 
 class PyUnsplashSourceClient:
@@ -32,31 +34,26 @@ class PyUnsplashSourceClient:
         self.width = width
         self.height = height
 
-    def _getter(self, getter_type: type, **kwargs):
+    def _getter(self, getter_type: Type[BaseGetter], *args):
+        g = getter_type(*args)
         # Inject default width/height if no overrides provided
-        if 'width' not in kwargs:
-            kwargs['width'] = self.width
-        if 'height' not in kwargs:
-            kwargs['height'] = self.height
-        return getter_type(**kwargs)
+        if self.width:
+            g.width(self.width)
+        if self.height:
+            g.height(self.height)
+        return g
 
-    def random_getter(self, **kwargs):
-        return self._getter(RandomGetter, **kwargs)
+    def random_getter(self) -> RandomGetter:
+        return self._getter(RandomGetter)
 
-    def item_getter(self, **kwargs):
-        return self._getter(ItemGetter, **kwargs)
+    def item_getter(self, image_id: str) -> ItemGetter:
+        return self._getter(ItemGetter, image_id)
 
-    def featured_getter(self, **kwargs):
-        return self._getter(FeaturedGetter, **kwargs)
+    def featured_getter(self) -> FeaturedGetter:
+        return self._getter(FeaturedGetter)
 
-    def collection_item_getter(self, **kwargs):
-        return self._getter(CollectionItemGetter, **kwargs)
+    def collection_item_getter(self, collection_id: int) -> CollectionItemGetter:
+        return self._getter(CollectionItemGetter, collection_id)
 
-    def user_item_getter(self, **kwargs):
-        return self._getter(UserItemGetter, **kwargs)
-
-
-
-
-
-
+    def user_item_getter(self, user_id: str) -> UserItemGetter:
+        return self._getter(UserItemGetter, user_id)

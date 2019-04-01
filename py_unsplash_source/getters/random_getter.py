@@ -20,41 +20,46 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from abc import ABC
-from py_unsplash_source.getters.base_getter import BaseGetter
-from py_unsplash_source.unsplash_server import UnsplashServer
-from py_unsplash_source.getters.reload_frequency import ReloadFrequency
-
 import re
+
+from py_unsplash_source.getters.base_getter import BaseGetter
+from py_unsplash_source.getters.reload_frequency import ReloadFrequency
 
 _SEARCH_SEPARATOR = re.compile(r'\s*,\s*')
 
 
-class RandomGetter(BaseGetter, ABC):
+class RandomGetter(BaseGetter):
     """Base class for fetching random items. More specialized classes can extend this class for specific cases."""
 
-    def __init__(self,
-                 server: UnsplashServer = UnsplashServer(),
-                 width: int = None,
-                 height: int = None,
-                 search: str = None,
-                 reload_freq: ReloadFrequency = None,
-                 ):
+    def __init__(self):
         # TODO: document this
-        super(RandomGetter, self).__init__(server, width, height)
-        self.search_params = _SEARCH_SEPARATOR.split(search) if search else None
-        self.reload_freq = reload_freq
+        super(RandomGetter, self).__init__()
+        self._search_params = set()
+        self._reload_freq = None
 
     def _build_url(self):
-        url = self.url_prefix
+        url = self._url_prefix
 
-        if self.reload_freq:
-            url += '/{}'.format(self.reload_freq.value)
+        if self._width and self._height:
+            url += '/{}x{}'.format(self._width, self._height)
 
-        if self.width and self.height:
-            url += '/{}x{}'.format(self.width, self.height)
+        if self._reload_freq:
+            url += '/{}'.format(self._reload_freq.value)
 
-        if self.search_params:
-            url += '?{}'.format(','.join(self.search_params))
+        if self._search_params:
+            url += '?{}'.format(','.join(sorted(self._search_params)))
 
         return url
+
+    def search(self, *search_params_list: str):
+        for search_params in search_params_list:
+            self._search_params = self._search_params.union(self._search_params, set(_SEARCH_SEPARATOR.split(search_params)))
+        return self
+
+    def daily(self):
+        self._reload_freq = ReloadFrequency.DAILY
+        return self
+
+    def weekly(self):
+        self._reload_freq = ReloadFrequency.WEEKLY
+        return self

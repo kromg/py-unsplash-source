@@ -41,38 +41,31 @@ def test_collection_item_build_url():
 
 
 def test_collection_item_build_url_with_geometry():
-    cig = CollectionItemGetter(
-        123,
-        width=800,
-        height=600
-    )
+    cig = CollectionItemGetter(123).width(800).height(600)
     assert cig._build_url() == '/collection/123/800x600'
 
 
 def test_collection_item_build_url_with_searches():
-    cig = CollectionItemGetter(123, search='some, random , string')
-    assert cig._build_url() == '/collection/123?some,random,string'
+    cig = CollectionItemGetter(123).search('some, random , string')
+    assert cig._build_url() == '/collection/123?random,some,string'
 
 
 def test_collection_item_build_url_with_reload_freq():
-    cig = CollectionItemGetter(123, reload_freq=ReloadFrequency.DAILY)
+    cig = CollectionItemGetter(123).daily()
     assert cig._build_url() == '/collection/123/daily'
 
 
 def test_collection_item_build_url_with_all():
-    cig = CollectionItemGetter(
-        123,
-        width=800,
-        height=600,
-        reload_freq=ReloadFrequency.WEEKLY,
-        search='random, search,string'
-    )
-    assert cig._build_url() == '/collection/123/weekly/800x600?random,search,string'
+    cig = (CollectionItemGetter(123)
+           .width(800)
+           .height(600)
+           .search('random, search,string')
+           .weekly()
+           )
+    assert cig._build_url() == '/collection/123/800x600/weekly?random,search,string'
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')
 def test_get_raises_on_failure():
     with pytest.raises(DownloadException):
         CollectionItemGetter(123).get()
-
-

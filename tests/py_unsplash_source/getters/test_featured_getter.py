@@ -36,41 +36,33 @@ def test_featured_getter_with_defaults():
 
 
 def test_featured_build_url():
-    fg = FeaturedGetter(
-    )
+    fg = FeaturedGetter()
     assert fg._build_url() == '/featured'
 
 
 def test_featured_build_url_with_geometry():
-    fg = FeaturedGetter(
-        width=800,
-        height=600
-    )
+    fg = FeaturedGetter().width(800).height(600)
     assert fg._build_url() == '/featured/800x600'
 
 
 def test_featured_build_url_with_searches():
-    fg = FeaturedGetter(
-        search='some, random , string'
-    )
-    assert fg._build_url() == '/featured?some,random,string'
+    fg = FeaturedGetter().search('some, random , string')
+    assert fg._build_url() == '/featured?random,some,string'
 
 
 def test_featured_build_url_with_reload_freq():
-    fg = FeaturedGetter(
-        reload_freq=ReloadFrequency.DAILY
-    )
+    fg = FeaturedGetter().daily()
     assert fg._build_url() == '/featured/daily'
 
 
 def test_featured_build_url_with_all():
-    fg = FeaturedGetter(
-        width=800,
-        height=600,
-        reload_freq=ReloadFrequency.WEEKLY,
-        search='random, search,string'
-    )
-    assert fg._build_url() == '/featured/weekly/800x600?random,search,string'
+    fg = (FeaturedGetter()
+          .width(800)
+          .height(600)
+          .search('random, search,string')
+          .weekly()
+          )
+    assert fg._build_url() == '/featured/800x600/weekly?random,search,string'
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')

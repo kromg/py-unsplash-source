@@ -27,5 +27,5 @@ from py_unsplash_source.unsplash_server import UnsplashServer
 
 def test_base_getter_is_abstract():
     with pytest.raises(TypeError, match="Can't instantiate abstract class"):
-        BaseGetter(UnsplashServer(), 1, 2)
+        BaseGetter()
 

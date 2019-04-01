@@ -21,10 +21,11 @@
 #
 
 from abc import ABC, abstractmethod
-from py_unsplash_source.unsplash_server import UnsplashServer
-from py_unsplash_source.getters.fetched_image import FetchedImage
 
 import requests
+
+from py_unsplash_source.getters.fetched_image import FetchedImage
+from py_unsplash_source.unsplash_server import UnsplashServer
 
 
 class DownloadException(Exception):
@@ -34,17 +35,14 @@ class DownloadException(Exception):
 class BaseGetter(ABC):
     """Base class from which all getters must be derived. It handles the basic information to fetch an image."""
 
-    def __init__(self,
-                 server: UnsplashServer,
-                 width: int,
-                 height: int):
+    def __init__(self):
         # TODO: document this
-        self.server = server
+        self._endpoint = UnsplashServer()
 
-        self.width = width
-        self.height = height
+        self._width = None
+        self._height = None
 
-        self.url_prefix = ''
+        self._url_prefix = ''
 
     @abstractmethod
     def _build_url(self):
@@ -55,7 +53,7 @@ class BaseGetter(ABC):
     def get(self):
         """Fetch an image per configuration of this getter. Returns a FetchedImage instance"""
         # TODO: enhance docstring with params and returns
-        url = '{}{}'.format(self.server, self._build_url())
+        url = '{}{}'.format(self._endpoint, self._build_url())
         response = requests.get(url)
         if response.status_code is not 200:
             raise DownloadException('Fetch: {} - returned: {}'.format(
@@ -63,3 +61,15 @@ class BaseGetter(ABC):
                 response.status_code
             ))
         return FetchedImage(response.content)
+
+    def endpoint(self, endpoint: UnsplashServer):
+        self._endpoint = endpoint
+        return self
+
+    def width(self, width: int):
+        self._width = width
+        return self
+
+    def height(self, height: int):
+        self._height = height
+        return self

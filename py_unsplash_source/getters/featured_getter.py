@@ -21,20 +21,12 @@
 #
 
 from py_unsplash_source.getters.random_getter import RandomGetter
-from py_unsplash_source.unsplash_server import UnsplashServer
-from py_unsplash_source.getters.reload_frequency import ReloadFrequency
 
 
 class FeaturedGetter(RandomGetter):
     """Getter that fetches a random item from a featured collection (extends RandomGetter)."""
 
-    def __init__(self,
-                 server: UnsplashServer = UnsplashServer(),
-                 width: int = None,
-                 height: int = None,
-                 search: str = None,
-                 reload_freq: ReloadFrequency = None,
-                 ):
+    def __init__(self):
         # TODO: document this
-        super(FeaturedGetter, self).__init__(server, width, height, search, reload_freq)
-        self.url_prefix += '/featured'
+        super(FeaturedGetter, self).__init__()
+        self._url_prefix += '/featured'

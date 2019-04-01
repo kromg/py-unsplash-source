@@ -24,6 +24,5 @@ from enum import Enum
 
 
 class ReloadFrequency(Enum):
-
     WEEKLY = 'weekly'
     DAILY = 'daily'
