@@ -42,7 +42,7 @@ image = su.from_user_getter(
     search="search,terms"  # Optional - append search terms
 ).get()
 
-# Random from a collection
+# Random from a collection √
 image = su.from_collection_getter(
     id="collection_id",
     width=123,  # optional
@@ -51,7 +51,7 @@ image = su.from_collection_getter(
     search="search,terms"  # Optional - append search terms
 ).get()
 
-# Random from featured collection
+# Random from featured collection √
 image = su.featured_getter(
     width=123,  # optional
     height=234,  # optional

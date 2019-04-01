@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# test_ucollection_item_getter.py
+# test_collection_item_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -30,44 +30,44 @@ import pytest
 
 
 def test_collection_item_getter_with_defaults():
-    uig = CollectionItemGetter(123)
-    assert uig is not None
-    assert isinstance(uig, (CollectionItemGetter, RandomGetter, BaseGetter))
+    cig = CollectionItemGetter(123)
+    assert cig is not None
+    assert isinstance(cig, (CollectionItemGetter, RandomGetter, BaseGetter))
 
 
 def test_collection_item_build_url():
-    uig = CollectionItemGetter(123)
-    assert uig._build_url() == '/collection/123'
+    cig = CollectionItemGetter(123)
+    assert cig._build_url() == '/collection/123'
 
 
 def test_collection_item_build_url_with_geometry():
-    uig = CollectionItemGetter(
+    cig = CollectionItemGetter(
         123,
         width=800,
         height=600
     )
-    assert uig._build_url() == '/collection/123/800x600'
+    assert cig._build_url() == '/collection/123/800x600'
 
 
 def test_collection_item_build_url_with_searches():
-    uig = CollectionItemGetter(123, search='some, random , string')
-    assert uig._build_url() == '/collection/123?some,random,string'
+    cig = CollectionItemGetter(123, search='some, random , string')
+    assert cig._build_url() == '/collection/123?some,random,string'
 
 
 def test_collection_item_build_url_with_reload_freq():
-    uig = CollectionItemGetter(123, reload_freq=ReloadFrequency.DAILY)
-    assert uig._build_url() == '/collection/123/daily'
+    cig = CollectionItemGetter(123, reload_freq=ReloadFrequency.DAILY)
+    assert cig._build_url() == '/collection/123/daily'
 
 
 def test_collection_item_build_url_with_all():
-    uig = CollectionItemGetter(
+    cig = CollectionItemGetter(
         123,
         width=800,
         height=600,
         reload_freq=ReloadFrequency.WEEKLY,
         search='random, search,string'
     )
-    assert uig._build_url() == '/collection/123/weekly/800x600?random,search,string'
+    assert cig._build_url() == '/collection/123/weekly/800x600?random,search,string'
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')

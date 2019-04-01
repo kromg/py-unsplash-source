@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# random_getter.py
+# item_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -30,31 +30,23 @@ import re
 _SEARCH_SEPARATOR = re.compile(r'\s*,\s*')
 
 
-class RandomGetter(BaseGetter, ABC):
-    """Base class for fetching random items. More specialized classes can extend this class for specific cases."""
+class ItemGetter(BaseGetter, ABC):
+    """Class to fetch a single item by id."""
 
     def __init__(self,
+                 item_id: str,
                  server: UnsplashServer = UnsplashServer(),
                  width: int = None,
                  height: int = None,
-                 search: str = None,
-                 reload_freq: ReloadFrequency = None,
                  ):
         # TODO: document this
-        super(RandomGetter, self).__init__(server, width, height)
-        self.search_params = _SEARCH_SEPARATOR.split(search) if search else None
-        self.reload_freq = reload_freq
+        super(ItemGetter, self).__init__(server, width, height)
+        self.url_prefix = '/{}'.format(item_id)
 
     def _build_url(self):
         url = self.url_prefix
 
-        if self.reload_freq:
-            url += '/{}'.format(self.reload_freq.value)
-
         if self.width and self.height:
             url += '/{}x{}'.format(self.width, self.height)
-
-        if self.search_params:
-            url += '?{}'.format(','.join(self.search_params))
 
         return url
