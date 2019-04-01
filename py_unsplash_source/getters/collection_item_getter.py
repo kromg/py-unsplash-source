@@ -21,8 +21,6 @@
 #
 
 from py_unsplash_source.getters.random_getter import RandomGetter
-from py_unsplash_source.unsplash_server import UnsplashServer
-from py_unsplash_source.getters.reload_frequency import ReloadFrequency
 
 
 class CollectionItemGetter(RandomGetter):

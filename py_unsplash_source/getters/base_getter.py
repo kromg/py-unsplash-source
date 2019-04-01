@@ -21,10 +21,11 @@
 #
 
 from abc import ABC, abstractmethod
-from py_unsplash_source.unsplash_server import UnsplashServer
-from py_unsplash_source.getters.fetched_image import FetchedImage
 
 import requests
+
+from py_unsplash_source.getters.fetched_image import FetchedImage
+from py_unsplash_source.unsplash_server import UnsplashServer
 
 
 class DownloadException(Exception):

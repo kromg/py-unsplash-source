@@ -62,7 +62,7 @@ def test_user_item_build_url_with_all():
            .height(600)
            .search('random, search,string')
            .weekly()
-    )
+           )
     assert uig._build_url() == '/user/usrName/800x600/weekly?random,search,string'
 
 
@@ -107,7 +107,7 @@ def test_user_item_likes_build_url_with_all():
            .height(600)
            .search('random, search,string')
            .weekly()
-    )
+           )
     assert uig._build_url() == '/user/usrName/likes/800x600/weekly?random,search,string'
 
 

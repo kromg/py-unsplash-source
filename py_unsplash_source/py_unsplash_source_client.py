@@ -21,8 +21,9 @@
 #
 
 from typing import Type
-from py_unsplash_source.getters.base_getter import BaseGetter
+
 from py_unsplash_source.getters import CollectionItemGetter, UserItemGetter, FeaturedGetter, RandomGetter, ItemGetter
+from py_unsplash_source.getters.base_getter import BaseGetter
 
 
 class PyUnsplashSourceClient:
@@ -56,9 +57,3 @@ class PyUnsplashSourceClient:
 
     def user_item_getter(self, **kwargs):
         return self._getter(UserItemGetter, **kwargs)
-
-
-
-
-
-

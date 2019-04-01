@@ -21,9 +21,9 @@
 #
 
 
-from py_unsplash_source.getters.base_getter import BaseGetter
-
 import re
+
+from py_unsplash_source.getters.base_getter import BaseGetter
 
 _SEARCH_SEPARATOR = re.compile(r'\s*,\s*')
 

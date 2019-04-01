@@ -20,10 +20,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import re
+
 from py_unsplash_source.getters.base_getter import BaseGetter
 from py_unsplash_source.getters.reload_frequency import ReloadFrequency
-
-import re
 
 _SEARCH_SEPARATOR = re.compile(r'\s*,\s*')
 
