@@ -53,7 +53,6 @@ class RandomGetter(BaseGetter):
 
     def search(self, *search_params_list: str):
         for search_params in search_params_list:
-            print('src: {}'.format(search_params))
             self._search_params = self._search_params.union(self._search_params, set(_SEARCH_SEPARATOR.split(search_params)))
         return self
 

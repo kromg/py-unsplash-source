@@ -46,8 +46,8 @@ class PyUnsplashSourceClient:
     def random_getter(self) -> RandomGetter:
         return self._getter(RandomGetter)
 
-    def item_getter(self) -> ItemGetter:
-        return self._getter(ItemGetter)
+    def item_getter(self, image_id: str) -> ItemGetter:
+        return self._getter(ItemGetter, image_id)
 
     def featured_getter(self) -> FeaturedGetter:
         return self._getter(FeaturedGetter)

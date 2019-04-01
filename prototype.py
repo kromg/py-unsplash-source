@@ -56,24 +56,10 @@ image = (su.featured_getter()
 
 image.save_as('/tmp/featured.jpg')
 
-# # Speficic image √
-# image = su.item_getter(
-#     id="WLUHO9A_xik",
-#     width=123,  # optional
-#     height=234,  # optional
-# ).get()
-#
-# image.save_as('/tmp/item.jpg')
+# Speficic image √
+image = (su.item_getter("WLUHO9A_xik")
+         .width(1920)
+         .height(1080)).get()
 
+image.save_as('/tmp/item.jpg')
 
-# Notes:
-#   - each *_getter will produce a "getter" object, capable of downloading one image each tmie get() is called
-#   - each call to get() will return an "image" object, capable of saving data to some file (and maybe capable of
-#       manipulating exif data or something of this sort?)
-#   - hierarchy:
-#       BaseGetter (width, height)
-#           |- RandomGetter (search & Frequency)
-#           |   |- FeaturedGetter
-#           |   |- CollectionGetter
-#           |- SingleItemGetter
-#
