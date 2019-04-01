@@ -24,7 +24,6 @@ from py_unsplash_source.getters.user_item_getter import UserItemGetter
 from py_unsplash_source.getters.random_getter import RandomGetter
 from py_unsplash_source.getters.base_getter import BaseGetter, DownloadException
 from py_unsplash_source.getters.reload_frequency import ReloadFrequency
-from py_unsplash_source.getters.fetched_image import FetchedImage
 
 import pytest
 
@@ -43,33 +42,28 @@ def test_user_item_build_url():
 
 
 def test_user_item_build_url_with_geometry():
-    uig = UserItemGetter(
-        "usrName",
-        width=800,
-        height=600
-    )
+    uig = UserItemGetter("usrName").width(800).height(600)
     assert uig._build_url() == '/user/usrName/800x600'
 
 
 def test_user_item_build_url_with_searches():
-    uig = UserItemGetter('usrName', search='some, random , string')
+    uig = UserItemGetter('usrName').search('some, random , string')
     assert uig._build_url() == '/user/usrName?some,random,string'
 
 
 def test_user_item_build_url_with_reload_freq():
-    uig = UserItemGetter('usrName', reload_freq=ReloadFrequency.DAILY)
+    uig = UserItemGetter('usrName').daily()
     assert uig._build_url() == '/user/usrName/daily'
 
 
 def test_user_item_build_url_with_all():
-    uig = UserItemGetter(
-        'usrName',
-        width=800,
-        height=600,
-        reload_freq=ReloadFrequency.WEEKLY,
-        search='random, search,string'
+    uig = (UserItemGetter('usrName')
+           .width(800)
+           .height(600)
+           .search('random, search,string')
+           .weekly()
     )
-    assert uig._build_url() == '/user/usrName/weekly/800x600?random,search,string'
+    assert uig._build_url() == '/user/usrName/800x600/weekly?random,search,string'
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')
@@ -81,49 +75,43 @@ def test_get_raises_on_failure():
 # ------------------------ with likes --------------------------------------
 
 def test_user_item_getter_likes_with_defaults():
-    uig = UserItemGetter('someName', from_likes=True)
+    uig = UserItemGetter('someName').from_likes()
     assert uig is not None
     assert isinstance(uig, (UserItemGetter, RandomGetter, BaseGetter))
 
 
 def test_user_item_likes_build_url():
-    uig = UserItemGetter('usrName', from_likes=True)
+    uig = UserItemGetter('usrName').from_likes()
     assert uig._build_url() == '/user/usrName/likes'
 
 
 def test_user_item_likes_build_url_with_geometry():
-    uig = UserItemGetter(
-        "usrName",
-        from_likes = True,
-        width=800,
-        height=600
-    )
+    uig = UserItemGetter("usrName").from_likes().width(800).height(600)
     assert uig._build_url() == '/user/usrName/likes/800x600'
 
 
 def test_user_item_likes_build_url_with_searches():
-    uig = UserItemGetter('usrName', from_likes=True, search='some, random , string')
+    uig = UserItemGetter('usrName').from_likes().search('some, random , string')
     assert uig._build_url() == '/user/usrName/likes?some,random,string'
 
 
 def test_user_item_likes_build_url_with_reload_freq():
-    uig = UserItemGetter('usrName', from_likes=True, reload_freq=ReloadFrequency.DAILY)
+    uig = UserItemGetter('usrName').from_likes().daily()
     assert uig._build_url() == '/user/usrName/likes/daily'
 
 
 def test_user_item_likes_build_url_with_all():
-    uig = UserItemGetter(
-        'usrName',
-        from_likes=True,
-        width=800,
-        height=600,
-        reload_freq=ReloadFrequency.WEEKLY,
-        search='random, search,string'
+    uig = (UserItemGetter('usrName')
+           .from_likes()
+           .width(800)
+           .height(600)
+           .search('random, search,string')
+           .weekly()
     )
-    assert uig._build_url() == '/user/usrName/likes/weekly/800x600?random,search,string'
+    assert uig._build_url() == '/user/usrName/likes/800x600/weekly?random,search,string'
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')
 def test_get_raises_on_failure():
     with pytest.raises(DownloadException):
-        UserItemGetter('usrName', from_likes=True).get()
+        UserItemGetter('usrName').from_likes().get()

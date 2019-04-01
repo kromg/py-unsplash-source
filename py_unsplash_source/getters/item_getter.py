@@ -20,33 +20,26 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from abc import ABC
+
 from py_unsplash_source.getters.base_getter import BaseGetter
-from py_unsplash_source.unsplash_server import UnsplashServer
-from py_unsplash_source.getters.reload_frequency import ReloadFrequency
 
 import re
 
 _SEARCH_SEPARATOR = re.compile(r'\s*,\s*')
 
 
-class ItemGetter(BaseGetter, ABC):
+class ItemGetter(BaseGetter):
     """Class to fetch a single item by id."""
 
-    def __init__(self,
-                 item_id: str,
-                 server: UnsplashServer = UnsplashServer(),
-                 width: int = None,
-                 height: int = None,
-                 ):
+    def __init__(self, item_id):
         # TODO: document this
-        super(ItemGetter, self).__init__(server, width, height)
-        self.url_prefix = '/{}'.format(item_id)
+        super(ItemGetter, self).__init__()
+        self._url_prefix = '/{}'.format(item_id)
 
     def _build_url(self):
-        url = self.url_prefix
+        url = self._url_prefix
 
-        if self.width and self.height:
-            url += '/{}x{}'.format(self.width, self.height)
+        if self._width and self._height:
+            url += '/{}x{}'.format(self._width, self._height)
 
         return url

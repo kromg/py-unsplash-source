@@ -40,41 +40,42 @@ def test_random_build_url():
 
 
 def test_random_build_url_with_geometry():
-    rg = RandomGetter(
-        width=800,
-        height=600
-    )
+    rg = RandomGetter().width(800).height(600)
     assert rg._build_url() == '/800x600'
+
+    # No one-dimensional geometry
+    rg = RandomGetter().width(800)
+    assert rg._build_url() == ''
+    rg = RandomGetter().height(600)
+    assert rg._build_url() == ''
 
 
 def test_random_build_url_with_searches():
-    rg = RandomGetter(
-        search='some, random , string'
-    )
+    rg = RandomGetter().search('some, random , string')
     assert rg._build_url() == '?some,random,string'
 
 
 def test_random_build_url_with_reload_freq():
-    rg = RandomGetter(
-        reload_freq=ReloadFrequency.DAILY
-    )
+    rg = RandomGetter().daily()
     assert rg._build_url() == '/daily'
+
+    rg = RandomGetter().weekly()
+    assert rg._build_url() == '/weekly'
 
 
 def test_random_build_url_with_all():
-    rg = RandomGetter(
-        width=800,
-        height=600,
-        reload_freq=ReloadFrequency.WEEKLY,
-        search='random, search,string'
-    )
-    assert rg._build_url() == '/weekly/800x600?random,search,string'
+    rg = (RandomGetter()
+          .width(800)
+          .height(600)
+          .search('random, search,string')
+          .weekly())
+    assert rg._build_url() == '/800x600/weekly?random,search,string'
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')
-def test_get_raises_on_failure(unsplash_server):
+def test_get_raises_on_failure():
     with pytest.raises(DownloadException):
-        RandomGetter(unsplash_server).get()
+        RandomGetter().get()
 
 
 def test_fetch_one_random_image():

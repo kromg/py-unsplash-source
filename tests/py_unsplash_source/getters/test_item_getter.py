@@ -33,23 +33,20 @@ def test_item_getter_with_defaults():
     assert isinstance(ig, (ItemGetter, BaseGetter))
 
 
-def test_random_build_url():
+def test_item_getter_build_url():
     ig = ItemGetter('abc')
     assert ig._build_url() == '/abc'
 
 
-def test_random_build_url_with_geometry():
-    ig = ItemGetter('abc', width=800, height=600)
+def test_item_getter_build_url_with_geometry():
+    ig = ItemGetter('abc').width(800).height(600)
     assert ig._build_url() == '/abc/800x600'
 
-
-def test_random_build_url_with_all():
-    ig = ItemGetter(
-        'abc',
-        width=800,
-        height=600,
-    )
-    assert ig._build_url() == '/abc/800x600'
+    # No single-dimension geometry
+    ig = ItemGetter('abc').width(800)
+    assert ig._build_url() == '/abc'
+    ig = ItemGetter('abc').height(600)
+    assert ig._build_url() == '/abc'
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')

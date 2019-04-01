@@ -28,14 +28,7 @@ from py_unsplash_source.getters.reload_frequency import ReloadFrequency
 class CollectionItemGetter(RandomGetter):
     """Getter that fetches a random item from a specific collection by id (extends RandomGetter)."""
 
-    def __init__(self,
-                 collection_id: int,
-                 server: UnsplashServer = UnsplashServer(),
-                 width: int = None,
-                 height: int = None,
-                 search: str = None,
-                 reload_freq: ReloadFrequency = None,
-                 ):
+    def __init__(self, collection_id):
         # TODO: document this
-        super(CollectionItemGetter, self).__init__(server, width, height, search, reload_freq)
-        self.url_prefix += '/collection/{}'.format(collection_id)
+        super(CollectionItemGetter, self).__init__()
+        self._url_prefix += '/collection/{}'.format(collection_id)

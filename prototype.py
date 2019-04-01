@@ -22,59 +22,58 @@
 
 from py_unsplash_source import PyUnsplashSourceClient
 
-su = PyUnsplashSourceClient()
+su = PyUnsplashSourceClient(width=800, height=600)
 
 # Random √
-image = su.random_getter(
-    width=123,  # optional
-    height=234,  # optional
-    update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
-    search="search,terms"  # Optional - append search terms
-).get()
+image = (su.random_getter()
+         .width(1920)
+         .height(1080)
+         .daily()
+         .search('nature,landscape')).get()
 
 image.save_as('/tmp/random.jpg')
 
-# Random from a specific user √
-image = su.user_item_getter(
-    user="name",
-    width=123,  # optional
-    height=234,  # optional
-    from_likes=True,  # Default: false - get from user likes
-    update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
-    search="search,terms"  # Optional - append search terms
-).get()
-
-image.save_as('/tmp/user.jpg')
-
-# Random from a collection √
-image = su.collection_item_getter(
-    id=145698,
-    width=123,  # optional
-    height=234,  # optional
-    update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
-    search="search,terms"  # Optional - append search terms
-).get()
-
-image.save_as('/tmp/collection.jpg')
-
-# Random from featured collection √
-image = su.featured_getter(
-    width=123,  # optional
-    height=234,  # optional
-    update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
-    search="search,terms"  # Optional - append search terms
-).get()
-
-image.save_as('/tmp/featured.jpg')
-
-# Speficic image √
-image = su.item_getter(
-    id="WLUHO9A_xik",
-    width=123,  # optional
-    height=234,  # optional
-).get()
-
-image.save_as('/tmp/item.jpg')
+# # Random from a specific user √
+# image = su.user_item_getter(
+#     user="name",
+#     width=123,  # optional
+#     height=234,  # optional
+#     from_likes=True,  # Default: false - get from user likes
+#     update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
+#     search="search,terms"  # Optional - append search terms
+# ).get()
+#
+# image.save_as('/tmp/user.jpg')
+#
+# # Random from a collection √
+# image = su.collection_item_getter(
+#     id=145698,
+#     width=123,  # optional
+#     height=234,  # optional
+#     update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
+#     search="search,terms"  # Optional - append search terms
+# ).get()
+#
+# image.save_as('/tmp/collection.jpg')
+#
+# # Random from featured collection √
+# image = su.featured_getter(
+#     width=123,  # optional
+#     height=234,  # optional
+#     update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
+#     search="search,terms"  # Optional - append search terms
+# ).get()
+#
+# image.save_as('/tmp/featured.jpg')
+#
+# # Speficic image √
+# image = su.item_getter(
+#     id="WLUHO9A_xik",
+#     width=123,  # optional
+#     height=234,  # optional
+# ).get()
+#
+# image.save_as('/tmp/item.jpg')
 
 
 # Notes:

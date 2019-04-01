@@ -20,8 +20,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+from typing import Type
+from py_unsplash_source.getters.base_getter import BaseGetter
 from py_unsplash_source.getters import CollectionItemGetter, UserItemGetter, FeaturedGetter, RandomGetter, ItemGetter
-from py_unsplash_source.getters.reload_frequency import ReloadFrequency
 
 
 class PyUnsplashSourceClient:
@@ -32,16 +33,17 @@ class PyUnsplashSourceClient:
         self.width = width
         self.height = height
 
-    def _getter(self, getter_type: type, **kwargs):
+    def _getter(self, getter_type: Type[BaseGetter], **kwargs):
+        g = getter_type()
         # Inject default width/height if no overrides provided
-        if 'width' not in kwargs:
-            kwargs['width'] = self.width
-        if 'height' not in kwargs:
-            kwargs['height'] = self.height
-        return getter_type(**kwargs)
+        if self.width:
+            g.width(self.width)
+        if self.height:
+            g.height(self.height)
+        return g
 
-    def random_getter(self, **kwargs):
-        return self._getter(RandomGetter, **kwargs)
+    def random_getter(self) -> RandomGetter:
+        return self._getter(RandomGetter)
 
     def item_getter(self, **kwargs):
         return self._getter(ItemGetter, **kwargs)
