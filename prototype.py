@@ -20,9 +20,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source import PyUnsplashSource
+from py_unsplash_source import PyUnsplashSourceClient
 
-su = PyUnsplashSource()
+su = PyUnsplashSourceClient()
 
 # Random √
 image = su.random_getter(
@@ -32,8 +32,10 @@ image = su.random_getter(
     search="search,terms"  # Optional - append search terms
 ).get()
 
+image.save_as('/tmp/random.jpg')
+
 # Random from a specific user √
-image = su.from_user_getter(
+image = su.user_item_getter(
     user="name",
     width=123,  # optional
     height=234,  # optional
@@ -42,14 +44,18 @@ image = su.from_user_getter(
     search="search,terms"  # Optional - append search terms
 ).get()
 
+image.save_as('/tmp/user.jpg')
+
 # Random from a collection √
-image = su.from_collection_getter(
-    id="collection_id",
+image = su.collection_item_getter(
+    id=145698,
     width=123,  # optional
     height=234,  # optional
     update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
     search="search,terms"  # Optional - append search terms
 ).get()
+
+image.save_as('/tmp/collection.jpg')
 
 # Random from featured collection √
 image = su.featured_getter(
@@ -59,16 +65,16 @@ image = su.featured_getter(
     search="search,terms"  # Optional - append search terms
 ).get()
 
-# Speficic image
-image = su.image_getter(
-    id="image_id",
+image.save_as('/tmp/featured.jpg')
+
+# Speficic image √
+image = su.item_getter(
+    id="WLUHO9A_xik",
     width=123,  # optional
     height=234,  # optional
 ).get()
 
-
-# Once you get the image into memory, save it somewhere:
-image.save_as("file name")
+image.save_as('/tmp/item.jpg')
 
 
 # Notes:
