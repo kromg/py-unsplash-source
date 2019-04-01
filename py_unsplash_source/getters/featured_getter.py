@@ -37,17 +37,4 @@ class FeaturedGetter(RandomGetter):
                  ):
         # TODO: document this
         super(FeaturedGetter, self).__init__(server, width, height, search, reload_freq)
-
-    def _build_url(self):
-        url = '{}/featured'.format(self.server)
-
-        if self.reload_freq:
-            url += '/{}'.format(self.reload_freq.value)
-
-        if self.width and self.height:
-            url += '/{}x{}'.format(self.width, self.height)
-
-        if self.search_params:
-            url += '?{}'.format(','.join(self.search_params))
-
-        return url
+        self.url_prefix += '/featured'

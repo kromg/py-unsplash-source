@@ -21,11 +21,63 @@
 #
 
 import pytest
+from py_unsplash_source.getters.base_getter import BaseGetter, DownloadException
 from py_unsplash_source.getters.random_getter import RandomGetter
-from py_unsplash_source.unsplash_server import UnsplashServer
+from py_unsplash_source.getters.reload_frequency import ReloadFrequency
+from py_unsplash_source.getters.fetched_image import FetchedImage
 
 
-def test_random_getter_is_abstract():
-    with pytest.raises(TypeError, match="Can't instantiate abstract class"):
-        rg = RandomGetter(UnsplashServer(), 1, 2)
+def test_random_getter_with_defaults():
+    rg = RandomGetter()
+    assert rg is not None
+    assert isinstance(rg, (RandomGetter, BaseGetter))
 
+
+def test_random_build_url():
+    rg = RandomGetter(
+    )
+    assert rg._build_url() == ''
+
+
+def test_random_build_url_with_geometry():
+    rg = RandomGetter(
+        width=800,
+        height=600
+    )
+    assert rg._build_url() == '/800x600'
+
+
+def test_random_build_url_with_searches():
+    rg = RandomGetter(
+        search='some, random , string'
+    )
+    assert rg._build_url() == '?some,random,string'
+
+
+def test_random_build_url_with_reload_freq():
+    rg = RandomGetter(
+        reload_freq=ReloadFrequency.DAILY
+    )
+    assert rg._build_url() == '/daily'
+
+
+def test_random_build_url_with_all():
+    rg = RandomGetter(
+        width=800,
+        height=600,
+        reload_freq=ReloadFrequency.WEEKLY,
+        search='random, search,string'
+    )
+    assert rg._build_url() == '/weekly/800x600?random,search,string'
+
+
+@pytest.mark.skip('need to mock a server or to mock requests')
+def test_get_raises_on_failure(unsplash_server):
+    with pytest.raises(DownloadException):
+        RandomGetter(unsplash_server).get()
+
+
+def test_fetch_one_random_image():
+    image = RandomGetter().get()
+    assert isinstance(image, FetchedImage)
+    # TODO: set geometry and verify that content is in fact an image and has required geometry.

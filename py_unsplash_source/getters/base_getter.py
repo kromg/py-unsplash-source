@@ -44,7 +44,7 @@ class BaseGetter(ABC):
         self.width = width
         self.height = height
 
-        self.url = None
+        self.url_prefix = ''
 
     @abstractmethod
     def _build_url(self):
@@ -55,7 +55,7 @@ class BaseGetter(ABC):
     def get(self):
         """Fetch an image per configuration of this getter. Returns a FetchedImage instance"""
         # TODO: enhance docstring with params and returns
-        url = self._build_url()
+        url = '{}{}'.format(self.server, self._build_url())
         response = requests.get(url)
         if response.status_code is not 200:
             raise DownloadException('Fetch: {} - returned: {}'.format(

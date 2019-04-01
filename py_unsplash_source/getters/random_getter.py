@@ -35,9 +35,9 @@ class RandomGetter(BaseGetter, ABC):
     update frequencies."""
 
     def __init__(self,
-                 server: UnsplashServer,
-                 width: int,
-                 height: int,
+                 server: UnsplashServer = UnsplashServer(),
+                 width: int = None,
+                 height: int = None,
                  search: str = None,
                  reload_freq: ReloadFrequency = None,
                  ):
@@ -45,3 +45,17 @@ class RandomGetter(BaseGetter, ABC):
         super(RandomGetter, self).__init__(server, width, height)
         self.search_params = _SEARCH_SEPARATOR.split(search) if search else None
         self.reload_freq = reload_freq
+
+    def _build_url(self):
+        url = self.url_prefix
+
+        if self.reload_freq:
+            url += '/{}'.format(self.reload_freq.value)
+
+        if self.width and self.height:
+            url += '/{}x{}'.format(self.width, self.height)
+
+        if self.search_params:
+            url += '?{}'.format(','.join(self.search_params))
+
+        return url
