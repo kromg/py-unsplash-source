@@ -54,6 +54,7 @@ class BaseGetter(ABC):
         """Fetch an image per configuration of this getter. Returns a FetchedImage instance"""
         # TODO: enhance docstring with params and returns
         url = '{}{}'.format(self._endpoint, self._build_url())
+        print(url)
         response = requests.get(url)
         if response.status_code is not 200:
             raise DownloadException('Fetch: {} - returned: {}'.format(

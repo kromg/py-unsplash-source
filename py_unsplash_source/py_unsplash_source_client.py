@@ -34,8 +34,8 @@ class PyUnsplashSourceClient:
         self.width = width
         self.height = height
 
-    def _getter(self, getter_type: Type[BaseGetter], **kwargs):
-        g = getter_type()
+    def _getter(self, getter_type: Type[BaseGetter], *args):
+        g = getter_type(*args)
         # Inject default width/height if no overrides provided
         if self.width:
             g.width(self.width)
@@ -46,14 +46,14 @@ class PyUnsplashSourceClient:
     def random_getter(self) -> RandomGetter:
         return self._getter(RandomGetter)
 
-    def item_getter(self, **kwargs):
-        return self._getter(ItemGetter, **kwargs)
+    def item_getter(self) -> ItemGetter:
+        return self._getter(ItemGetter)
 
-    def featured_getter(self, **kwargs):
-        return self._getter(FeaturedGetter, **kwargs)
+    def featured_getter(self) -> FeaturedGetter:
+        return self._getter(FeaturedGetter)
 
-    def collection_item_getter(self, **kwargs):
-        return self._getter(CollectionItemGetter, **kwargs)
+    def collection_item_getter(self, collection_id: int) -> CollectionItemGetter:
+        return self._getter(CollectionItemGetter, collection_id)
 
-    def user_item_getter(self, **kwargs):
-        return self._getter(UserItemGetter, **kwargs)
+    def user_item_getter(self, user_id: str) -> UserItemGetter:
+        return self._getter(UserItemGetter, user_id)

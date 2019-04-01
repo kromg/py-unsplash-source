@@ -48,7 +48,7 @@ def test_user_item_build_url_with_geometry():
 
 def test_user_item_build_url_with_searches():
     uig = UserItemGetter('usrName').search('some, random , string')
-    assert uig._build_url() == '/user/usrName?some,random,string'
+    assert uig._build_url() == '/user/usrName?random,some,string'
 
 
 def test_user_item_build_url_with_reload_freq():
@@ -92,7 +92,7 @@ def test_user_item_likes_build_url_with_geometry():
 
 def test_user_item_likes_build_url_with_searches():
     uig = UserItemGetter('usrName').from_likes().search('some, random , string')
-    assert uig._build_url() == '/user/usrName/likes?some,random,string'
+    assert uig._build_url() == '/user/usrName/likes?random,some,string'
 
 
 def test_user_item_likes_build_url_with_reload_freq():

@@ -52,7 +52,9 @@ def test_random_build_url_with_geometry():
 
 def test_random_build_url_with_searches():
     rg = RandomGetter().search('some, random , string')
-    assert rg._build_url() == '?some,random,string'
+    assert rg._build_url() == '?random,some,string'
+    rg = RandomGetter().search('some, random , string', 'another, search, terms, collection', 'random, some, else')
+    assert rg._build_url() == '?another,collection,else,random,search,some,string,terms'
 
 
 def test_random_build_url_with_reload_freq():

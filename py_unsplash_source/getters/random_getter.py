@@ -34,7 +34,7 @@ class RandomGetter(BaseGetter):
     def __init__(self):
         # TODO: document this
         super(RandomGetter, self).__init__()
-        self._search_params = None
+        self._search_params = set()
         self._reload_freq = None
 
     def _build_url(self):
@@ -47,12 +47,14 @@ class RandomGetter(BaseGetter):
             url += '/{}'.format(self._reload_freq.value)
 
         if self._search_params:
-            url += '?{}'.format(','.join(self._search_params))
+            url += '?{}'.format(','.join(sorted(self._search_params)))
 
         return url
 
-    def search(self, search_params: str):
-        self._search_params = _SEARCH_SEPARATOR.split(search_params)
+    def search(self, *search_params_list: str):
+        for search_params in search_params_list:
+            print('src: {}'.format(search_params))
+            self._search_params = self._search_params.union(self._search_params, set(_SEARCH_SEPARATOR.split(search_params)))
         return self
 
     def daily(self):

@@ -47,7 +47,7 @@ def test_featured_build_url_with_geometry():
 
 def test_featured_build_url_with_searches():
     fg = FeaturedGetter().search('some, random , string')
-    assert fg._build_url() == '/featured?some,random,string'
+    assert fg._build_url() == '/featured?random,some,string'
 
 
 def test_featured_build_url_with_reload_freq():

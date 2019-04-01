@@ -47,7 +47,7 @@ def test_collection_item_build_url_with_geometry():
 
 def test_collection_item_build_url_with_searches():
     cig = CollectionItemGetter(123).search('some, random , string')
-    assert cig._build_url() == '/collection/123?some,random,string'
+    assert cig._build_url() == '/collection/123?random,some,string'
 
 
 def test_collection_item_build_url_with_reload_freq():
