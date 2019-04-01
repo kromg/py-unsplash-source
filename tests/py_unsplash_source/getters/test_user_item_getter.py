@@ -1,0 +1,129 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+# vim: se et ts=4 syn=python:
+
+#
+# test_user_item_getter.py
+# Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+
+from py_unsplash_source.getters.user_item_getter import UserItemGetter
+from py_unsplash_source.getters.random_getter import RandomGetter
+from py_unsplash_source.getters.base_getter import BaseGetter, DownloadException
+from py_unsplash_source.getters.reload_frequency import ReloadFrequency
+from py_unsplash_source.getters.fetched_image import FetchedImage
+
+import pytest
+
+
+# ------------------------ without likes --------------------------------------
+
+def test_user_item_getter_with_defaults():
+    uig = UserItemGetter('someName')
+    assert uig is not None
+    assert isinstance(uig, (UserItemGetter, RandomGetter, BaseGetter))
+
+
+def test_user_item_build_url():
+    uig = UserItemGetter('usrName')
+    assert uig._build_url() == '/user/usrName'
+
+
+def test_user_item_build_url_with_geometry():
+    uig = UserItemGetter(
+        "usrName",
+        width=800,
+        height=600
+    )
+    assert uig._build_url() == '/user/usrName/800x600'
+
+
+def test_user_item_build_url_with_searches():
+    uig = UserItemGetter('usrName', search='some, random , string')
+    assert uig._build_url() == '/user/usrName?some,random,string'
+
+
+def test_user_item_build_url_with_reload_freq():
+    uig = UserItemGetter('usrName', reload_freq=ReloadFrequency.DAILY)
+    assert uig._build_url() == '/user/usrName/daily'
+
+
+def test_user_item_build_url_with_all():
+    uig = UserItemGetter(
+        'usrName',
+        width=800,
+        height=600,
+        reload_freq=ReloadFrequency.WEEKLY,
+        search='random, search,string'
+    )
+    assert uig._build_url() == '/user/usrName/weekly/800x600?random,search,string'
+
+
+@pytest.mark.skip('need to mock a server or to mock requests')
+def test_get_raises_on_failure():
+    with pytest.raises(DownloadException):
+        UserItemGetter('usrName').get()
+
+
+# ------------------------ with likes --------------------------------------
+
+def test_user_item_getter_likes_with_defaults():
+    uig = UserItemGetter('someName', from_likes=True)
+    assert uig is not None
+    assert isinstance(uig, (UserItemGetter, RandomGetter, BaseGetter))
+
+
+def test_user_item_likes_build_url():
+    uig = UserItemGetter('usrName', from_likes=True)
+    assert uig._build_url() == '/user/usrName/likes'
+
+
+def test_user_item_likes_build_url_with_geometry():
+    uig = UserItemGetter(
+        "usrName",
+        from_likes = True,
+        width=800,
+        height=600
+    )
+    assert uig._build_url() == '/user/usrName/likes/800x600'
+
+
+def test_user_item_likes_build_url_with_searches():
+    uig = UserItemGetter('usrName', from_likes=True, search='some, random , string')
+    assert uig._build_url() == '/user/usrName/likes?some,random,string'
+
+
+def test_user_item_likes_build_url_with_reload_freq():
+    uig = UserItemGetter('usrName', from_likes=True, reload_freq=ReloadFrequency.DAILY)
+    assert uig._build_url() == '/user/usrName/likes/daily'
+
+
+def test_user_item_likes_build_url_with_all():
+    uig = UserItemGetter(
+        'usrName',
+        from_likes=True,
+        width=800,
+        height=600,
+        reload_freq=ReloadFrequency.WEEKLY,
+        search='random, search,string'
+    )
+    assert uig._build_url() == '/user/usrName/likes/weekly/800x600?random,search,string'
+
+
+@pytest.mark.skip('need to mock a server or to mock requests')
+def test_get_raises_on_failure():
+    with pytest.raises(DownloadException):
+        UserItemGetter('usrName', from_likes=True).get()

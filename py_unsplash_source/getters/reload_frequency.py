@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# reload_frequency
+# reload_frequency.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify

@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# random_getter.py
+# user_item_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,21 +20,17 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from abc import ABC
-from py_unsplash_source.getters.base_getter import BaseGetter
+from py_unsplash_source.getters.random_getter import RandomGetter
 from py_unsplash_source.unsplash_server import UnsplashServer
 from py_unsplash_source.getters.reload_frequency import ReloadFrequency
 
-import re
 
-_SEARCH_SEPARATOR = re.compile(r'\s*,\s*')
-
-
-class RandomGetter(BaseGetter, ABC):
-    """Base class from which all random getters must be derived. It handles the information to search and get specific
-    update frequencies."""
+class UserItemGetter(RandomGetter):
+    """Getter that fetches a random item from a specific user's collection (extends RandomGetter)."""
 
     def __init__(self,
+                 user: str,
+                 from_likes: bool = False,
                  server: UnsplashServer = UnsplashServer(),
                  width: int = None,
                  height: int = None,
@@ -42,20 +38,9 @@ class RandomGetter(BaseGetter, ABC):
                  reload_freq: ReloadFrequency = None,
                  ):
         # TODO: document this
-        super(RandomGetter, self).__init__(server, width, height)
-        self.search_params = _SEARCH_SEPARATOR.split(search) if search else None
-        self.reload_freq = reload_freq
+        super(UserItemGetter, self).__init__(server, width, height, search, reload_freq)
+        self.url_prefix += '/user/{}'.format(user)
+        if from_likes:
+            self.url_prefix += '/likes'
 
-    def _build_url(self):
-        url = self.url_prefix
 
-        if self.reload_freq:
-            url += '/{}'.format(self.reload_freq.value)
-
-        if self.width and self.height:
-            url += '/{}x{}'.format(self.width, self.height)
-
-        if self.search_params:
-            url += '?{}'.format(','.join(self.search_params))
-
-        return url

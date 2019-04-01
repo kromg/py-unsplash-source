@@ -24,6 +24,14 @@ from py_unsplash_source import PyUnsplashSource
 
 su = PyUnsplashSource()
 
+# Random
+image = su.random_getter(
+    width=123,  # optional
+    height=234,  # optional
+    update="UpdateFrequency",  # Optional - From enum: UpdateFrequency
+    search="search,terms"  # Optional - append search terms
+).get()
+
 # Random from a specific user
 image = su.from_user_getter(
     user="name",

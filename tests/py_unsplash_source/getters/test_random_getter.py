@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# TestBaseGetter
+# test_random_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
