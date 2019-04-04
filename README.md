@@ -2,6 +2,9 @@
 
 Python library to get pictures from [source.unsplash.com](https://source.unsplash.com/).
 
+**NOTE**: some APIs are still subject to change:
+* getter names are being revised;
+* the `width`/`height` methods could be joined into a single `geometry` method.  
 
 ## Quickstart
 
@@ -11,6 +14,8 @@ Each time you call the `get()` method, a new picture will be downloaded, unless 
 requesting a a specific image by id - in which case, you'll keep downloading
 the same picture over and over again; the same applies to `daily` and `weekly` pictures, 
 that will stay the same until the following day or week, of course. 
+
+Where appropriate, getters support search terms.
 
 
 ### Get an image by id
@@ -41,3 +46,29 @@ image = ig.get()
 image.save_as('image.jpg')
 
 ```
+
+
+
+### Get a random image
+
+TBDocumented. Use `RandomGetter`
+
+
+### Get a random image from a featured collection
+
+TBDocumented. Use `FeaturedGetter`
+
+
+### Get a random image from a specific collection
+
+TBDocumented. Use `CollectionItemGetter`
+
+
+### Get a random image from a user's collection
+
+TBDocumented. Use `UserItemGetter`
+
+
+### Get a random image from a user's likes
+
+TBDocumented. Use `UserItemGetter` + `with_likes()` 
