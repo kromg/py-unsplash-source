@@ -24,8 +24,8 @@ from abc import ABC, abstractmethod
 
 import requests
 
-from py_unsplash_source.getters.fetched_image import FetchedImage
-from py_unsplash_source.unsplash_server import UnsplashServer
+from py_unsplash_source.images.fetched_image import FetchedImage
+from py_unsplash_source.unsplash_endpoint import UnsplashEndpoint
 
 
 class DownloadException(Exception):
@@ -37,7 +37,7 @@ class BaseGetter(ABC):
 
     def __init__(self):
         # TODO: document this
-        self._endpoint = UnsplashServer()
+        self._endpoint = UnsplashEndpoint()
 
         self._width = None
         self._height = None
@@ -62,7 +62,7 @@ class BaseGetter(ABC):
             ))
         return FetchedImage(response.content)
 
-    def endpoint(self, endpoint: UnsplashServer):
+    def endpoint(self, endpoint: UnsplashEndpoint):
         self._endpoint = endpoint
         return self
 

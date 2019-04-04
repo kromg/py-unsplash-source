@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# test_unsplash_server
+# test_unsplash_endpoint
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,11 +20,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source.unsplash_server import UnsplashServer
+from py_unsplash_source.unsplash_endpoint import UnsplashEndpoint
 
 
-def test_default_server():
-    s = UnsplashServer()
+def test_default_endpoint():
+    s = UnsplashEndpoint()
     assert s.protocol == 'https'
     assert s.host == 'source.unsplash.com'
     assert s.port is None
@@ -32,8 +32,8 @@ def test_default_server():
     assert str(s) == 'https://source.unsplash.com'
 
 
-def test_custom_server():
-    s = UnsplashServer(protocol='http', host='test', port=80)
+def test_custom_endpoint():
+    s = UnsplashEndpoint(protocol='http', host='test', port=80)
 
     assert s.protocol == 'http'
     assert s.host == 'test'

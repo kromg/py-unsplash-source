@@ -22,7 +22,7 @@
 
 import pytest
 from py_unsplash_source.getters.base_getter import BaseGetter
-from py_unsplash_source.unsplash_server import UnsplashServer
+from py_unsplash_source.unsplash_endpoint import UnsplashEndpoint
 
 
 def test_base_getter_is_abstract():

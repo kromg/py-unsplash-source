@@ -20,11 +20,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source.getters.collection_item_getter import CollectionItemGetter
-from py_unsplash_source.getters.random_getter import RandomGetter
+from py_unsplash_source.getters.impl.collection_item_getter import CollectionItemGetter
+from py_unsplash_source.getters.impl.random_getter import RandomGetter
 from py_unsplash_source.getters.base_getter import BaseGetter, DownloadException
-from py_unsplash_source.getters.reload_frequency import ReloadFrequency
-from py_unsplash_source.getters.fetched_image import FetchedImage
 
 import pytest
 

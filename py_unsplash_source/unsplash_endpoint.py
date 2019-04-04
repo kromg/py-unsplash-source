@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# collection_item_getter.py
+# unsplash_endpoint.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,20 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source.getters.random_getter import RandomGetter
 
+class UnsplashEndpoint:
 
-class CollectionItemGetter(RandomGetter):
-    """Getter that fetches a random item from a specific collection by id (extends RandomGetter)."""
+    def __init__(self,
+                 protocol: str = 'https',
+                 host: str = 'source.unsplash.com',
+                 port: int = None):
+        self.protocol = protocol
+        self.host = host
+        self.port = port
 
-    def __init__(self, collection_id):
-        # TODO: document this
-        super(CollectionItemGetter, self).__init__()
-        self._url_prefix += '/collection/{}'.format(collection_id)
+    def __str__(self):
+        return '{}://{}{}'.format(
+            self.protocol,
+            self.host,
+            ':{}'.format(self.port) if self.port else ''
+        )

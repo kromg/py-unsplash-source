@@ -22,9 +22,8 @@
 
 import pytest
 from py_unsplash_source.getters.base_getter import BaseGetter, DownloadException
-from py_unsplash_source.getters.item_getter import ItemGetter
-from py_unsplash_source.getters.reload_frequency import ReloadFrequency
-from py_unsplash_source.getters.fetched_image import FetchedImage
+from py_unsplash_source.getters.impl.item_getter import ItemGetter
+from py_unsplash_source.images.fetched_image import FetchedImage
 
 
 def test_item_getter_with_defaults():
