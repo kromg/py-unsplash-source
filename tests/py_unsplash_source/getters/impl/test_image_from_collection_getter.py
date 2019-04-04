@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# test_collection_item_getter.py
+# test_image_from_collection_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,41 +20,41 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source.getters.impl.collection_item_getter import CollectionItemGetter
-from py_unsplash_source.getters.impl.random_getter import RandomGetter
+from py_unsplash_source.getters.impl.image_from_collection_getter import ImageFromCollectionGetter
+from py_unsplash_source.getters.impl.random_image_getter import RandomImageGetter
 from py_unsplash_source.getters.base_getter import BaseGetter, DownloadException
 
 import pytest
 
 
-def test_collection_item_getter_with_defaults():
-    cig = CollectionItemGetter(123)
+def test_image_from_collection_getter_with_defaults():
+    cig = ImageFromCollectionGetter(123)
     assert cig is not None
-    assert isinstance(cig, (CollectionItemGetter, RandomGetter, BaseGetter))
+    assert isinstance(cig, (ImageFromCollectionGetter, RandomImageGetter, BaseGetter))
 
 
-def test_collection_item_build_url():
-    cig = CollectionItemGetter(123)
+def test_image_from_collection_build_url():
+    cig = ImageFromCollectionGetter(123)
     assert cig._build_url() == '/collection/123'
 
 
-def test_collection_item_build_url_with_geometry():
-    cig = CollectionItemGetter(123).width(800).height(600)
+def test_image_from_collection_build_url_with_geometry():
+    cig = ImageFromCollectionGetter(123).width(800).height(600)
     assert cig._build_url() == '/collection/123/800x600'
 
 
-def test_collection_item_build_url_with_searches():
-    cig = CollectionItemGetter(123).search('some, random , string')
+def test_image_from_collection_build_url_with_searches():
+    cig = ImageFromCollectionGetter(123).search('some, random , string')
     assert cig._build_url() == '/collection/123?random,some,string'
 
 
-def test_collection_item_build_url_with_reload_freq():
-    cig = CollectionItemGetter(123).daily()
+def test_image_from_collection_build_url_with_reload_freq():
+    cig = ImageFromCollectionGetter(123).daily()
     assert cig._build_url() == '/collection/123/daily'
 
 
-def test_collection_item_build_url_with_all():
-    cig = (CollectionItemGetter(123)
+def test_image_from_collection_build_url_with_all():
+    cig = (ImageFromCollectionGetter(123)
            .width(800)
            .height(600)
            .search('random, search,string')
@@ -66,4 +66,4 @@ def test_collection_item_build_url_with_all():
 @pytest.mark.skip('need to mock a server or to mock requests')
 def test_get_raises_on_failure():
     with pytest.raises(DownloadException):
-        CollectionItemGetter(123).get()
+        ImageFromCollectionGetter(123).get()

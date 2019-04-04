@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# item_getter.py
+# image_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -28,12 +28,12 @@ from py_unsplash_source.getters.base_getter import BaseGetter
 _SEARCH_SEPARATOR = re.compile(r'\s*,\s*')
 
 
-class ItemGetter(BaseGetter):
+class ImageGetter(BaseGetter):
     """Class to fetch a single item by id."""
 
     def __init__(self, item_id):
         # TODO: document this
-        super(ItemGetter, self).__init__()
+        super(ImageGetter, self).__init__()
         self._url_prefix = '/{}'.format(item_id)
 
     def _build_url(self):

@@ -25,7 +25,7 @@ from py_unsplash_source import PyUnsplashSourceClient
 su = PyUnsplashSourceClient(width=800, height=600)
 
 # Random √
-image = (su.random_getter()
+image = (su.random_image()
          .width(1920)
          .height(1080)
          .daily()
@@ -34,7 +34,7 @@ image = (su.random_getter()
 image.save_as('/tmp/random.jpg')
 
 # Random from a specific user √
-image = (su.user_item_getter('gangdise')
+image = (su.image_from_user('gangdise')
          .from_likes()
          .width(1920)
          .height(1080)).get()
@@ -42,14 +42,14 @@ image = (su.user_item_getter('gangdise')
 image.save_as('/tmp/user.jpg')
 
 # Random from a collection √
-image = (su.collection_item_getter(145698)
+image = (su.image_from_collection(145698)
          .width(1920)
          .height(1080)).get()
 
 image.save_as('/tmp/collection.jpg')
 
 # # Random from featured collection √
-image = (su.featured_getter()
+image = (su.image_from_featured()
          .width(1920)
          .height(1080)
          .search('nature,landscape', 'sunset')).get()
@@ -57,7 +57,7 @@ image = (su.featured_getter()
 image.save_as('/tmp/featured.jpg')
 
 # Speficic image √
-image = (su.item_getter("WLUHO9A_xik")
+image = (su.image("WLUHO9A_xik")
          .width(1920)
          .height(1080)).get()
 

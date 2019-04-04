@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# collection_item_getter.py
+# image_from_featured_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,13 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source.getters.impl.random_getter import RandomGetter
+from py_unsplash_source.getters.impl.random_image_getter import RandomImageGetter
 
 
-class CollectionItemGetter(RandomGetter):
-    """Getter that fetches a random item from a specific collection by id (extends RandomGetter)."""
+class ImageFromFeaturedGetter(RandomImageGetter):
+    """Getter that fetches a random item from a featured collection (extends RandomGetter)."""
 
-    def __init__(self, collection_id):
+    def __init__(self):
         # TODO: document this
-        super(CollectionItemGetter, self).__init__()
-        self._url_prefix += '/collection/{}'.format(collection_id)
+        super(ImageFromFeaturedGetter, self).__init__()
+        self._url_prefix += '/featured'

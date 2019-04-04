@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# test_random_getter.py
+# test_random_image_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -22,50 +22,50 @@
 
 import pytest
 from py_unsplash_source.getters.base_getter import BaseGetter, DownloadException
-from py_unsplash_source.getters.impl.random_getter import RandomGetter
+from py_unsplash_source.getters.impl.random_image_getter import RandomImageGetter
 from py_unsplash_source.images.fetched_image import FetchedImage
 
 
-def test_random_getter_with_defaults():
-    rg = RandomGetter()
+def test_random_image_getter_with_defaults():
+    rg = RandomImageGetter()
     assert rg is not None
-    assert isinstance(rg, (RandomGetter, BaseGetter))
+    assert isinstance(rg, (RandomImageGetter, BaseGetter))
 
 
 def test_random_build_url():
-    rg = RandomGetter(
+    rg = RandomImageGetter(
     )
     assert rg._build_url() == ''
 
 
 def test_random_build_url_with_geometry():
-    rg = RandomGetter().width(800).height(600)
+    rg = RandomImageGetter().width(800).height(600)
     assert rg._build_url() == '/800x600'
 
     # No one-dimensional geometry
-    rg = RandomGetter().width(800)
+    rg = RandomImageGetter().width(800)
     assert rg._build_url() == ''
-    rg = RandomGetter().height(600)
+    rg = RandomImageGetter().height(600)
     assert rg._build_url() == ''
 
 
 def test_random_build_url_with_searches():
-    rg = RandomGetter().search('some, random , string')
+    rg = RandomImageGetter().search('some, random , string')
     assert rg._build_url() == '?random,some,string'
-    rg = RandomGetter().search('some, random , string', 'another, search, terms, collection', 'random, some, else')
+    rg = RandomImageGetter().search('some, random , string', 'another, search, terms, collection', 'random, some, else')
     assert rg._build_url() == '?another,collection,else,random,search,some,string,terms'
 
 
 def test_random_build_url_with_reload_freq():
-    rg = RandomGetter().daily()
+    rg = RandomImageGetter().daily()
     assert rg._build_url() == '/daily'
 
-    rg = RandomGetter().weekly()
+    rg = RandomImageGetter().weekly()
     assert rg._build_url() == '/weekly'
 
 
 def test_random_build_url_with_all():
-    rg = (RandomGetter()
+    rg = (RandomImageGetter()
           .width(800)
           .height(600)
           .search('random, search,string')
@@ -76,10 +76,10 @@ def test_random_build_url_with_all():
 @pytest.mark.skip('need to mock a server or to mock requests')
 def test_get_raises_on_failure():
     with pytest.raises(DownloadException):
-        RandomGetter().get()
+        RandomImageGetter().get()
 
 
 def test_fetch_one_random_image():
-    image = RandomGetter().get()
+    image = RandomImageGetter().get()
     assert isinstance(image, FetchedImage)
     # TODO: set geometry and verify that content is in fact an image and has required geometry.

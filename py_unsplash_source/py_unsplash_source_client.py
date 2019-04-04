@@ -22,7 +22,7 @@
 
 from typing import Type
 
-from py_unsplash_source.getters import CollectionItemGetter, UserItemGetter, FeaturedGetter, RandomGetter, ItemGetter
+from py_unsplash_source.getters import ImageFromCollectionGetter, ImageFromUserGetter, ImageFromFeaturedGetter, RandomImageGetter, ImageGetter
 from py_unsplash_source.getters.base_getter import BaseGetter
 
 
@@ -43,17 +43,17 @@ class PyUnsplashSourceClient:
             g.height(self.height)
         return g
 
-    def random_getter(self) -> RandomGetter:
-        return self._getter(RandomGetter)
+    def random_image(self) -> RandomImageGetter:
+        return self._getter(RandomImageGetter)
 
-    def item_getter(self, image_id: str) -> ItemGetter:
-        return self._getter(ItemGetter, image_id)
+    def image(self, image_id: str) -> ImageGetter:
+        return self._getter(ImageGetter, image_id)
 
-    def featured_getter(self) -> FeaturedGetter:
-        return self._getter(FeaturedGetter)
+    def image_from_featured(self) -> ImageFromFeaturedGetter:
+        return self._getter(ImageFromFeaturedGetter)
 
-    def collection_item_getter(self, collection_id: int) -> CollectionItemGetter:
-        return self._getter(CollectionItemGetter, collection_id)
+    def image_from_collection(self, collection_id: int) -> ImageFromCollectionGetter:
+        return self._getter(ImageFromCollectionGetter, collection_id)
 
-    def user_item_getter(self, user_id: str) -> UserItemGetter:
-        return self._getter(UserItemGetter, user_id)
+    def image_from_user(self, user_id: str) -> ImageFromUserGetter:
+        return self._getter(ImageFromUserGetter, user_id)

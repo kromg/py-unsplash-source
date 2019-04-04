@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# random_getter.py
+# random_image_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -28,12 +28,12 @@ from py_unsplash_source.getters.reload_frequency import ReloadFrequency
 _SEARCH_SEPARATOR = re.compile(r'\s*,\s*')
 
 
-class RandomGetter(BaseGetter):
+class RandomImageGetter(BaseGetter):
     """Base class for fetching random items. More specialized classes can extend this class for specific cases."""
 
     def __init__(self):
         # TODO: document this
-        super(RandomGetter, self).__init__()
+        super(RandomImageGetter, self).__init__()
         self._search_params = set()
         self._reload_freq = None
 

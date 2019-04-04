@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# test_user_item_getter.py
+# test_image_from_user_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,8 +20,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source.getters.impl.user_item_getter import UserItemGetter
-from py_unsplash_source.getters.impl.random_getter import RandomGetter
+from py_unsplash_source.getters.impl.image_from_user_getter import ImageFromUserGetter
+from py_unsplash_source.getters.impl.random_image_getter import RandomImageGetter
 from py_unsplash_source.getters.base_getter import BaseGetter, DownloadException
 
 import pytest
@@ -29,34 +29,34 @@ import pytest
 
 # ------------------------ without likes --------------------------------------
 
-def test_user_item_getter_with_defaults():
-    uig = UserItemGetter('someName')
+def test_image_from_user_getter_with_defaults():
+    uig = ImageFromUserGetter('someName')
     assert uig is not None
-    assert isinstance(uig, (UserItemGetter, RandomGetter, BaseGetter))
+    assert isinstance(uig, (ImageFromUserGetter, RandomImageGetter, BaseGetter))
 
 
-def test_user_item_build_url():
-    uig = UserItemGetter('usrName')
+def test_image_from_user_build_url():
+    uig = ImageFromUserGetter('usrName')
     assert uig._build_url() == '/user/usrName'
 
 
-def test_user_item_build_url_with_geometry():
-    uig = UserItemGetter("usrName").width(800).height(600)
+def test_image_from_user_build_url_with_geometry():
+    uig = ImageFromUserGetter("usrName").width(800).height(600)
     assert uig._build_url() == '/user/usrName/800x600'
 
 
-def test_user_item_build_url_with_searches():
-    uig = UserItemGetter('usrName').search('some, random , string')
+def test_image_from_user_build_url_with_searches():
+    uig = ImageFromUserGetter('usrName').search('some, random , string')
     assert uig._build_url() == '/user/usrName?random,some,string'
 
 
-def test_user_item_build_url_with_reload_freq():
-    uig = UserItemGetter('usrName').daily()
+def test_image_from_user_build_url_with_reload_freq():
+    uig = ImageFromUserGetter('usrName').daily()
     assert uig._build_url() == '/user/usrName/daily'
 
 
-def test_user_item_build_url_with_all():
-    uig = (UserItemGetter('usrName')
+def test_image_from_user_build_url_with_all():
+    uig = (ImageFromUserGetter('usrName')
            .width(800)
            .height(600)
            .search('random, search,string')
@@ -68,39 +68,39 @@ def test_user_item_build_url_with_all():
 @pytest.mark.skip('need to mock a server or to mock requests')
 def test_get_raises_on_failure():
     with pytest.raises(DownloadException):
-        UserItemGetter('usrName').get()
+        ImageFromUserGetter('usrName').get()
 
 
 # ------------------------ with likes --------------------------------------
 
-def test_user_item_getter_likes_with_defaults():
-    uig = UserItemGetter('someName').from_likes()
+def test_image_from_user_getter_likes_with_defaults():
+    uig = ImageFromUserGetter('someName').from_likes()
     assert uig is not None
-    assert isinstance(uig, (UserItemGetter, RandomGetter, BaseGetter))
+    assert isinstance(uig, (ImageFromUserGetter, RandomImageGetter, BaseGetter))
 
 
-def test_user_item_likes_build_url():
-    uig = UserItemGetter('usrName').from_likes()
+def test_image_from_user_likes_build_url():
+    uig = ImageFromUserGetter('usrName').from_likes()
     assert uig._build_url() == '/user/usrName/likes'
 
 
-def test_user_item_likes_build_url_with_geometry():
-    uig = UserItemGetter("usrName").from_likes().width(800).height(600)
+def test_image_from_user_likes_build_url_with_geometry():
+    uig = ImageFromUserGetter("usrName").from_likes().width(800).height(600)
     assert uig._build_url() == '/user/usrName/likes/800x600'
 
 
-def test_user_item_likes_build_url_with_searches():
-    uig = UserItemGetter('usrName').from_likes().search('some, random , string')
+def test_image_from_user_likes_build_url_with_searches():
+    uig = ImageFromUserGetter('usrName').from_likes().search('some, random , string')
     assert uig._build_url() == '/user/usrName/likes?random,some,string'
 
 
-def test_user_item_likes_build_url_with_reload_freq():
-    uig = UserItemGetter('usrName').from_likes().daily()
+def test_image_from_user_likes_build_url_with_reload_freq():
+    uig = ImageFromUserGetter('usrName').from_likes().daily()
     assert uig._build_url() == '/user/usrName/likes/daily'
 
 
-def test_user_item_likes_build_url_with_all():
-    uig = (UserItemGetter('usrName')
+def test_image_from_user_likes_build_url_with_all():
+    uig = (ImageFromUserGetter('usrName')
            .from_likes()
            .width(800)
            .height(600)
@@ -113,4 +113,4 @@ def test_user_item_likes_build_url_with_all():
 @pytest.mark.skip('need to mock a server or to mock requests')
 def test_get_raises_on_failure():
     with pytest.raises(DownloadException):
-        UserItemGetter('usrName').from_likes().get()
+        ImageFromUserGetter('usrName').from_likes().get()

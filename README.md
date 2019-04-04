@@ -1,10 +1,7 @@
 # py-unsplash-source
 
 Python library to get pictures from [source.unsplash.com](https://source.unsplash.com/).
-
-**NOTE**: some APIs are still subject to change:
-* getter names are being revised;
-* the `width`/`height` methods could be joined into a single `geometry` method.  
+  
 
 ## Quickstart
 
@@ -23,9 +20,9 @@ Where appropriate, getters support search terms.
 ```python
 
 # Using getter directly
-from py_unsplash_source.getters import ItemGetter
+from py_unsplash_source.getters import ImageGetter
 
-ig = (ItemGetter('zMyZrfcLXQE')
+ig = (ImageGetter('zMyZrfcLXQE')
       .width(1920)          # Optional
       .height(1080)         # Optional
       )
@@ -51,24 +48,24 @@ image.save_as('image.jpg')
 
 ### Get a random image
 
-TBDocumented. Use `RandomGetter`
+TBDocumented. Use `RandomImageGetter`
 
 
 ### Get a random image from a featured collection
 
-TBDocumented. Use `FeaturedGetter`
+TBDocumented. Use `ImageFromFeaturedGetter`
 
 
 ### Get a random image from a specific collection
 
-TBDocumented. Use `CollectionItemGetter`
+TBDocumented. Use `ImageFromCollectionGetter`
 
 
 ### Get a random image from a user's collection
 
-TBDocumented. Use `UserItemGetter`
+TBDocumented. Use `ImageFromUserGetter`
 
 
 ### Get a random image from a user's likes
 
-TBDocumented. Use `UserItemGetter` + `with_likes()` 
+TBDocumented. Use `ImageFromUserGetter` + `with_likes()` 

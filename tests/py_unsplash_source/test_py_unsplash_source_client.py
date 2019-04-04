@@ -21,7 +21,7 @@
 #
 
 from py_unsplash_source.py_unsplash_source_client import PyUnsplashSourceClient
-from py_unsplash_source.getters import CollectionItemGetter, FeaturedGetter, ItemGetter, RandomGetter, UserItemGetter
+from py_unsplash_source.getters import ImageFromCollectionGetter, ImageFromFeaturedGetter, ImageGetter, RandomImageGetter, ImageFromUserGetter
 
 
 defaults = {'width': 800, 'height': 600}
@@ -39,41 +39,41 @@ def test_client_with_defaults():
     assert c.height == 600
 
 
-def test_client_can_create_collection_item_getter():
+def test_client_can_create_image_from_collection_getter():
     c = PyUnsplashSourceClient(**defaults)
-    g = c.collection_item_getter(123)
-    assert isinstance(g, CollectionItemGetter)
+    g = c.image_from_collection(123)
+    assert isinstance(g, ImageFromCollectionGetter)
     assert g._width == 800
     assert g._height == 600
 
 
 def test_client_can_create_featured_getter():
     c = PyUnsplashSourceClient(**defaults)
-    g = c.featured_getter()
-    assert isinstance(g, FeaturedGetter)
+    g = c.image_from_featured()
+    assert isinstance(g, ImageFromFeaturedGetter)
     assert g._width == 800
     assert g._height == 600
 
 
-def test_client_can_create_item_getter():
+def test_client_can_create_image_getter():
     c = PyUnsplashSourceClient(**defaults)
-    g = c.item_getter('abc')
-    assert isinstance(g, ItemGetter)
+    g = c.image('abc')
+    assert isinstance(g, ImageGetter)
     assert g._width == 800
     assert g._height == 600
 
 
 def test_client_can_create_random_getter():
     c = PyUnsplashSourceClient(**defaults)
-    g = c.random_getter()
-    assert isinstance(g, RandomGetter)
+    g = c.random_image()
+    assert isinstance(g, RandomImageGetter)
     assert g._width == 800
     assert g._height == 600
 
 
-def test_client_can_create_user_item_getter():
+def test_client_can_create_image_from_user_getter():
     c = PyUnsplashSourceClient(**defaults)
-    g = c.user_item_getter('usrName')
-    assert isinstance(g, UserItemGetter)
+    g = c.image_from_user('usrName')
+    assert isinstance(g, ImageFromUserGetter)
     assert g._width == 800
     assert g._height == 600

@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# test_item_getter.py
+# test_image_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -22,39 +22,39 @@
 
 import pytest
 from py_unsplash_source.getters.base_getter import BaseGetter, DownloadException
-from py_unsplash_source.getters.impl.item_getter import ItemGetter
+from py_unsplash_source.getters.impl.image_getter import ImageGetter
 from py_unsplash_source.images.fetched_image import FetchedImage
 
 
-def test_item_getter_with_defaults():
-    ig = ItemGetter('abc')
+def test_image_getter_with_defaults():
+    ig = ImageGetter('abc')
     assert ig is not None
-    assert isinstance(ig, (ItemGetter, BaseGetter))
+    assert isinstance(ig, (ImageGetter, BaseGetter))
 
 
-def test_item_getter_build_url():
-    ig = ItemGetter('abc')
+def test_image_getter_build_url():
+    ig = ImageGetter('abc')
     assert ig._build_url() == '/abc'
 
 
-def test_item_getter_build_url_with_geometry():
-    ig = ItemGetter('abc').width(800).height(600)
+def test_image_getter_build_url_with_geometry():
+    ig = ImageGetter('abc').width(800).height(600)
     assert ig._build_url() == '/abc/800x600'
 
     # No single-dimension geometry
-    ig = ItemGetter('abc').width(800)
+    ig = ImageGetter('abc').width(800)
     assert ig._build_url() == '/abc'
-    ig = ItemGetter('abc').height(600)
+    ig = ImageGetter('abc').height(600)
     assert ig._build_url() == '/abc'
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')
 def test_get_raises_on_failure(unsplash_server):
     with pytest.raises(DownloadException):
-        ItemGetter(unsplash_server).get()
+        ImageGetter(unsplash_server).get()
 
 
 def test_fetch_one_image():
-    image = ItemGetter('WLUHO9A_xik').get()
+    image = ImageGetter('WLUHO9A_xik').get()
     assert isinstance(image, FetchedImage)
     # TODO: set geometry and verify that content is in fact an image and has required geometry.

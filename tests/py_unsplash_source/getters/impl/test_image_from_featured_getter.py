@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# test_featured_getter.py
+# test_image_from_featured_getter.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,42 +20,42 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source.getters.impl.featured_getter import FeaturedGetter
-from py_unsplash_source.getters.impl.random_getter import RandomGetter
+from py_unsplash_source.getters.impl.image_from_featured_getter import ImageFromFeaturedGetter
+from py_unsplash_source.getters.impl.random_image_getter import RandomImageGetter
 from py_unsplash_source.getters.base_getter import BaseGetter, DownloadException
 from py_unsplash_source.images.fetched_image import FetchedImage
 
 import pytest
 
 
-def test_featured_getter_with_defaults():
-    fg = FeaturedGetter()
+def test_image_from_featured_getter_with_defaults():
+    fg = ImageFromFeaturedGetter()
     assert fg is not None
-    assert isinstance(fg, (FeaturedGetter, RandomGetter, BaseGetter))
+    assert isinstance(fg, (ImageFromFeaturedGetter, RandomImageGetter, BaseGetter))
 
 
-def test_featured_build_url():
-    fg = FeaturedGetter()
+def test_image_from_featured_build_url():
+    fg = ImageFromFeaturedGetter()
     assert fg._build_url() == '/featured'
 
 
-def test_featured_build_url_with_geometry():
-    fg = FeaturedGetter().width(800).height(600)
+def test_image_from_featured_build_url_with_geometry():
+    fg = ImageFromFeaturedGetter().width(800).height(600)
     assert fg._build_url() == '/featured/800x600'
 
 
-def test_featured_build_url_with_searches():
-    fg = FeaturedGetter().search('some, random , string')
+def test_image_from_featured_build_url_with_searches():
+    fg = ImageFromFeaturedGetter().search('some, random , string')
     assert fg._build_url() == '/featured?random,some,string'
 
 
-def test_featured_build_url_with_reload_freq():
-    fg = FeaturedGetter().daily()
+def test_image_from_featured_build_url_with_reload_freq():
+    fg = ImageFromFeaturedGetter().daily()
     assert fg._build_url() == '/featured/daily'
 
 
-def test_featured_build_url_with_all():
-    fg = (FeaturedGetter()
+def test_image_from_featured_build_url_with_all():
+    fg = (ImageFromFeaturedGetter()
           .width(800)
           .height(600)
           .search('random, search,string')
@@ -65,12 +65,12 @@ def test_featured_build_url_with_all():
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')
-def test_get_raises_on_failure(unsplash_server):
+def test_get_raises_on_failure():
     with pytest.raises(DownloadException):
-        FeaturedGetter(unsplash_server).get()
+        ImageFromFeaturedGetter().get()
 
 
 def test_fetch_one_random_image():
-    image = FeaturedGetter().get()
+    image = ImageFromFeaturedGetter().get()
     assert isinstance(image, FetchedImage)
     # TODO: set geometry and verify that content is in fact an image and has required geometry.

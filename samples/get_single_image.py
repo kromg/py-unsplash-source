@@ -20,9 +20,9 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source.getters import ItemGetter
+from py_unsplash_source.getters import ImageGetter
 
-ig = (ItemGetter('zMyZrfcLXQE')
+ig = (ImageGetter('zMyZrfcLXQE')
       .width(1920)
       .height(1080)
       )
