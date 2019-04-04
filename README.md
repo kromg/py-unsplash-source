@@ -34,9 +34,9 @@ from py_unsplash_source import PyUnsplashSourceClient
 
 su = PyUnsplashSourceClient()
 ig = (su.item_getter('zMyZrfcLXQE')
-         .width(1920)       # Optional
-         .height(1080)      # Optional
-         )
+      .width(1920)  # Optional
+      .height(1080)  # Optional
+      )
 image = ig.get()
 image.save_as('image.jpg')
 
