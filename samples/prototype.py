@@ -53,7 +53,7 @@ image = (su.image_from_featured()
 image.save_as('/tmp/featured.jpg')
 
 # Speficic image √
-image = (su.image("WLUHO9A_xik")
+image = (su.image("ieic5Tq8YMk")
          .geometry(1920, 1080)).get()
 
 image.save_as('/tmp/item.jpg')
