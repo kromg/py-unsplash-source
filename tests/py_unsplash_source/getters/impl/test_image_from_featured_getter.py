@@ -40,7 +40,7 @@ def test_image_from_featured_build_url():
 
 
 def test_image_from_featured_build_url_with_geometry():
-    fg = ImageFromFeaturedGetter().width(800).height(600)
+    fg = ImageFromFeaturedGetter().geometry(800, 600)
     assert fg._build_url() == '/featured/800x600'
 
 
@@ -56,8 +56,7 @@ def test_image_from_featured_build_url_with_reload_freq():
 
 def test_image_from_featured_build_url_with_all():
     fg = (ImageFromFeaturedGetter()
-          .width(800)
-          .height(600)
+          .geometry(800, 600)
           .search('random, search,string')
           .weekly()
           )

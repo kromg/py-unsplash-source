@@ -23,8 +23,7 @@
 from py_unsplash_source.getters import ImageGetter
 
 ig = (ImageGetter('zMyZrfcLXQE')
-      .width(1920)
-      .height(1080)
+      .geometry(1920, 1080)
       )
 
 image = ig.get()

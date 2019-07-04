@@ -37,10 +37,8 @@ class PyUnsplashSourceClient:
     def _getter(self, getter_type: Type[BaseGetter], *args):
         g = getter_type(*args)
         # Inject default width/height if no overrides provided
-        if self.width:
-            g.width(self.width)
-        if self.height:
-            g.height(self.height)
+        if self.width and self.height:
+            g.geometry(self.width, self.height)
         return g
 
     def random_image(self) -> RandomImageGetter:

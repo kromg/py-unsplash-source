@@ -39,7 +39,7 @@ def test_image_from_collection_build_url():
 
 
 def test_image_from_collection_build_url_with_geometry():
-    cig = ImageFromCollectionGetter(123).width(800).height(600)
+    cig = ImageFromCollectionGetter(123).geometry(800, 600)
     assert cig._build_url() == '/collection/123/800x600'
 
 
@@ -55,8 +55,7 @@ def test_image_from_collection_build_url_with_reload_freq():
 
 def test_image_from_collection_build_url_with_all():
     cig = (ImageFromCollectionGetter(123)
-           .width(800)
-           .height(600)
+           .geometry(800, 600)
            .search('random, search,string')
            .weekly()
            )

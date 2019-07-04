@@ -39,14 +39,8 @@ def test_random_build_url():
 
 
 def test_random_build_url_with_geometry():
-    rg = RandomImageGetter().width(800).height(600)
+    rg = RandomImageGetter().geometry(800, 600)
     assert rg._build_url() == '/800x600'
-
-    # No one-dimensional geometry
-    rg = RandomImageGetter().width(800)
-    assert rg._build_url() == ''
-    rg = RandomImageGetter().height(600)
-    assert rg._build_url() == ''
 
 
 def test_random_build_url_with_searches():
@@ -66,8 +60,7 @@ def test_random_build_url_with_reload_freq():
 
 def test_random_build_url_with_all():
     rg = (RandomImageGetter()
-          .width(800)
-          .height(600)
+          .geometry(800, 600)
           .search('random, search,string')
           .weekly())
     assert rg._build_url() == '/800x600/weekly?random,search,string'

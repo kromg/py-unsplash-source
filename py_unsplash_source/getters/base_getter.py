@@ -66,10 +66,7 @@ class BaseGetter(ABC):
         self._endpoint = endpoint
         return self
 
-    def width(self, width: int):
+    def geometry(self, width: int, height: int):
         self._width = width
-        return self
-
-    def height(self, height: int):
         self._height = height
         return self

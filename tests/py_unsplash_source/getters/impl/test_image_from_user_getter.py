@@ -41,7 +41,7 @@ def test_image_from_user_build_url():
 
 
 def test_image_from_user_build_url_with_geometry():
-    uig = ImageFromUserGetter("usrName").width(800).height(600)
+    uig = ImageFromUserGetter("usrName").geometry(800, 600)
     assert uig._build_url() == '/user/usrName/800x600'
 
 
@@ -57,8 +57,7 @@ def test_image_from_user_build_url_with_reload_freq():
 
 def test_image_from_user_build_url_with_all():
     uig = (ImageFromUserGetter('usrName')
-           .width(800)
-           .height(600)
+           .geometry(800, 600)
            .search('random, search,string')
            .weekly()
            )
@@ -85,7 +84,7 @@ def test_image_from_user_likes_build_url():
 
 
 def test_image_from_user_likes_build_url_with_geometry():
-    uig = ImageFromUserGetter("usrName").from_likes().width(800).height(600)
+    uig = ImageFromUserGetter("usrName").from_likes().geometry(800, 600)
     assert uig._build_url() == '/user/usrName/likes/800x600'
 
 
@@ -102,8 +101,7 @@ def test_image_from_user_likes_build_url_with_reload_freq():
 def test_image_from_user_likes_build_url_with_all():
     uig = (ImageFromUserGetter('usrName')
            .from_likes()
-           .width(800)
-           .height(600)
+           .geometry(800, 600)
            .search('random, search,string')
            .weekly()
            )

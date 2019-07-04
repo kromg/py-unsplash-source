@@ -38,14 +38,8 @@ def test_image_getter_build_url():
 
 
 def test_image_getter_build_url_with_geometry():
-    ig = ImageGetter('abc').width(800).height(600)
+    ig = ImageGetter('abc').geometry(800, 600)
     assert ig._build_url() == '/abc/800x600'
-
-    # No single-dimension geometry
-    ig = ImageGetter('abc').width(800)
-    assert ig._build_url() == '/abc'
-    ig = ImageGetter('abc').height(600)
-    assert ig._build_url() == '/abc'
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')
