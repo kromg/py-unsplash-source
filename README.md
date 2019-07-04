@@ -5,6 +5,19 @@ Python library to get pictures from [source.unsplash.com](https://source.unsplas
 
 ## Quickstart
 
+### Installation
+
+```bash
+git clone https://github.com/kromg/py-unsplash-source.git
+cd py-unsplash-source
+python3 setup.py install
+```
+
+
+### Usage
+
+**NOTE**: see examples in the `sample` directory for a quick startup. 
+
 To download one or more images from [source.unsplash.com](https://source.unsplash.com/)
 create the appropriate getter and call its `get()` method. 
 Each time you call the `get()` method, a new picture will be downloaded, unless you're 
