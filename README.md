@@ -48,9 +48,8 @@ image.save_as('image.jpg')
 from py_unsplash_source import PyUnsplashSourceClient
 
 su = PyUnsplashSourceClient()
-ig = (su.item_getter('zMyZrfcLXQE')
-      .width(1920)  # Optional
-      .height(1080)  # Optional
+ig = (su.item_getter('ieic5Tq8YMk')
+      .geometry(1920, 1080)  # Optional
       )
 image = ig.get()
 image.save_as('image.jpg')
