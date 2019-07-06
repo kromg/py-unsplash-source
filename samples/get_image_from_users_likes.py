@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# image_from_collection_getter.py
+# get_image_from_users_likes.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,17 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source.getters.impl.random_image_getter import RandomImageGetter
+from py_unsplash_source.getters import ImageFromUserGetter
 
+# Search for an image
+ig = (ImageFromUserGetter('@karishea')    # Leading '@' can be omitted, it's removed anyway
+      .geometry(1920, 1080)               # Optional
+      .from_likes()
+      # .search('no no no')     # Search terms are ignored with "from_likes()"
+      # .daily()                # daily() and weekly() are ignored with "from_likes()"
+      # .weekly()               # daily() and weekly() are ignored with "from_likes()"
+      )
 
-class ImageFromCollectionGetter(RandomImageGetter):
-    """Getter that fetches a random item from a specific collection by id (extends RandomGetter)."""
+image = ig.get()
+image.save_as('image.jpg')
 
-    def __init__(self, collection_id: int):
-        # TODO: document this
-        super(ImageFromCollectionGetter, self).__init__()
-        self._url_prefix += '/collection/{}'.format(collection_id)

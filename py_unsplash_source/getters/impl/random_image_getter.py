@@ -43,10 +43,10 @@ class RandomImageGetter(BaseGetter):
         if self._width and self._height:
             url += '/{}x{}'.format(self._width, self._height)
 
-        if self._reload_freq:
+        if self._reload_freq and '/likes' not in url:
             url += '/{}'.format(self._reload_freq.value)
 
-        if self._search_params:
+        if self._search_params and '/likes' not in url:
             url += '?{}'.format(','.join(sorted(self._search_params)))
 
         return url

@@ -45,7 +45,7 @@ image = (su.image_from_collection(145698)
 
 image.save_as('/tmp/collection.jpg')
 
-# # Random from featured collection √
+# Random from featured collection √
 image = (su.image_from_featured()
          .geometry(1920, 1080)
          .search('nature,landscape', 'sunset')).get()

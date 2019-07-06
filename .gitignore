@@ -10,3 +10,4 @@ dist
 MANIFEST
 **/*.egg-info
 build/
+**/*.jpg

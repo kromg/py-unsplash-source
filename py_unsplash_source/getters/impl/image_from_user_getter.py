@@ -29,6 +29,8 @@ class ImageFromUserGetter(RandomImageGetter):
     def __init__(self, user: str):
         # TODO: document this
         super(ImageFromUserGetter, self).__init__()
+        if user.startswith('@'):
+            user = user.replace('@', '', 1)     # Remove leading '@'
         self._url_prefix += '/user/{}'.format(user)
 
     def from_likes(self):

@@ -3,7 +3,7 @@
 # vim: se et ts=4 syn=python:
 
 #
-# image_from_collection_getter.py
+# get_random_image.py
 # Copyright (C) 2019 Giacomo Montagner <kromg.kromg@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,13 +20,33 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from py_unsplash_source.getters.impl.random_image_getter import RandomImageGetter
+from py_unsplash_source.getters import RandomImageGetter
 
+# Search for an image
+ig = (RandomImageGetter()
+      .geometry(1920, 1080)             # Optional
+      .search('python, programing')     # Optional
+      )
 
-class ImageFromCollectionGetter(RandomImageGetter):
-    """Getter that fetches a random item from a specific collection by id (extends RandomGetter)."""
+image = ig.get()
+image.save_as('image.jpg')
 
-    def __init__(self, collection_id: int):
-        # TODO: document this
-        super(ImageFromCollectionGetter, self).__init__()
-        self._url_prefix += '/collection/{}'.format(collection_id)
+# Get the daily image
+ig = (RandomImageGetter()
+      .geometry(1920, 1080)             # Optional
+      .search('programming')
+      .daily()
+      )
+
+image = ig.get()
+image.save_as('daily.jpg')
+
+# Get the weekly image
+ig = (RandomImageGetter()
+      .geometry(1920, 1080)             # Optional
+      .search('programming')
+      .weekly()
+      )
+
+image = ig.get()
+image.save_as('weekly.jpg')

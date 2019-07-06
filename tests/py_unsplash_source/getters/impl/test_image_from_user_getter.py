@@ -89,23 +89,27 @@ def test_image_from_user_likes_build_url_with_geometry():
 
 
 def test_image_from_user_likes_build_url_with_searches():
-    uig = ImageFromUserGetter('usrName').from_likes().search('some, random , string')
-    assert uig._build_url() == '/user/usrName/likes?random,some,string'
+    uig = (ImageFromUserGetter('usrName')
+           .from_likes()
+           .search('some, random , string'))        # Ignored
+    assert uig._build_url() == '/user/usrName/likes'
 
 
 def test_image_from_user_likes_build_url_with_reload_freq():
-    uig = ImageFromUserGetter('usrName').from_likes().daily()
-    assert uig._build_url() == '/user/usrName/likes/daily'
+    uig = (ImageFromUserGetter('usrName')
+           .from_likes()
+           .daily())        # Ignored
+    assert uig._build_url() == '/user/usrName/likes'
 
 
 def test_image_from_user_likes_build_url_with_all():
     uig = (ImageFromUserGetter('usrName')
            .from_likes()
            .geometry(800, 600)
-           .search('random, search,string')
-           .weekly()
+           .search('random, search,string')     # Ignored
+           .weekly()                            # Ignored
            )
-    assert uig._build_url() == '/user/usrName/likes/800x600/weekly?random,search,string'
+    assert uig._build_url() == '/user/usrName/likes/800x600'
 
 
 @pytest.mark.skip('need to mock a server or to mock requests')
